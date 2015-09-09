@@ -18,3 +18,9 @@ post '/validateLogin' do
   parameters = JSON.parse(request.body.read)
   user.validateLogin(parameters["username"], parameters["password"]).to_json()
 end
+
+post '/getTwitterFeed' do
+  twitterFeed = TwitterFeed.new
+  parameters = JSON.parse(request.body.read)
+  twitterFeed.getTweets(parameters["twitterUsers"]).to_json()
+end
