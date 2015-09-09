@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+}
+
+
+#main-column {
+	height: 100%;
+}
+
+#main-row {
+	height: 100%;
+}
+
+#news-column {
+	border-right: 1px solid #999;
+}
