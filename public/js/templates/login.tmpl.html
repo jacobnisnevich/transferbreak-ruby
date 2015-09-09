@@ -1,0 +1,34 @@
+<md-dialog aria-label="Log In">
+	<form>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Log In</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-font-library="material-icons" class="md-light md-48">clear</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="max-width:450px;max-height:400px;">
+		<md-content layout-padding class="autoScroll">
+			<md-input-container class="md-icon-float" >
+				<label>Username</label>
+				<md-icon md-font-library="material-icons" class="md-light md-48">account_circle</md-icon>
+				<input ng-model="user.name" type="text">
+			</md-input-container>
+			<md-input-container class="md-icon-float" >
+				<label>Password</label>
+				<md-icon md-font-library="material-icons" class="md-light md-48">lock</md-icon>
+				<input ng-model="user.password" type="password">
+			</md-input-container>
+		</md-content>
+		<md-button ng-click="newAccount()">Don't have an account?</md-button>
+	</md-dialog-content>
+	<div class="md-actions" layout="row">
+		<span flex class="flex"></span>
+		<md-button ng-click="submit(user.name, user.password)" style="margin-right:20px;" >
+			Submit
+		</md-button>
+	</div>
+	</form>
+</md-dialog>
