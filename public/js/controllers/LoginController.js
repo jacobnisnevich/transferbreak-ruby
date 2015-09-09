@@ -1,10 +1,20 @@
 app.controller("LoginController", ["$scope", "$mdDialog", function($scope, $mdDialog) {
 	$scope.loggedIn = false;
+	$scope.accountText = "Log In";
 	$scope.beLoggedIn = function() {
 		$scope.loggedIn = true;
+		$scope.accountText = "Account Settings"
 	};
 	$scope.beLoggedOut = function() {
 		$scope.loggedIn = false;
+		$scope.accountText = "Log In";
+	};
+	$scope.openAccountDialog = function(event) {
+		if ($scope.loggedIn) {
+			$scope.openAccountSettingsDialog(event);
+		} else {
+			$scope.openLoginDialog(event)
+		}
 	};
 	$scope.openLoginDialog = function(event) {
 		$mdDialog.show({
@@ -29,5 +39,7 @@ app.controller("LoginController", ["$scope", "$mdDialog", function($scope, $mdDi
 			}
 		});
 	};
+	$scope.openAccountSettingsDialog = function(event) {
 
+	};
 }]);
