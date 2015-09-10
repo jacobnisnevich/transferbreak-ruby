@@ -31,4 +31,10 @@ app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
 	$scope.$on("initTB", function(event) {
 		$scope.loadTweets();
 	});
+
+	$scope.$on("updateContent", function(event, data) {
+		$scope.tweetsLoaded = false;
+		$scope.twitterSources = data.twitterPrefs;
+		$scope.loadTweets();
+	});
 }]);

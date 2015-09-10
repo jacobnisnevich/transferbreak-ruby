@@ -13,3 +13,7 @@ html, body {
 #news-column {
 	border-right: 1px solid #999;
 }
+
+#tweets-column {
+	height: flex;
+}

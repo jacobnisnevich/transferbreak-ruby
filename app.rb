@@ -19,6 +19,18 @@ post '/validateLogin' do
   user.validateLogin(parameters["username"], parameters["password"]).to_json()
 end
 
+post '/getUserPreferences' do
+  user = User.new
+  parameters = JSON.parse(request.body.read)
+  user.getPreferences(parameters["username"]).to_json()
+end
+
+post '/updateUserPreferences' do 
+  user = User.new
+  parameters = JSON.parse(request.body.read)
+  user.updatePreferences(parameters["username"], parameters["twitterPrefs"], parameters["newsPrefs"])
+end
+
 post '/getTwitterFeed' do
   twitterFeed = TwitterFeed.new
   parameters = JSON.parse(request.body.read)

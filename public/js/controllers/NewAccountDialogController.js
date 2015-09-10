@@ -32,7 +32,9 @@ function NewAccountDialogController($scope, $mdDialog, $mdToast, $http) {
 				"username": username, 
 				"password": password
 			}).then(function(response) {
-				$mdDialog.hide();
+				$mdDialog.hide({
+					"username": username
+				});
 			}, function(response) {
 				$scope.showStatus(response);
 			});

@@ -25,6 +25,7 @@
 	<script src="js/controllers/LoginController.js"></script>
 	<script src="js/controllers/LoginDialogController.js"></script>
 	<script src="js/controllers/NewAccountDialogController.js"></script>
+	<script src="js/controllers/AccountDialogController.js"></script>
 </head>
 <body ng-app="TransferBreak" ng-controller="MainController" ng-init="init()">
 	<div layout="column" id="main-column">
@@ -56,7 +57,7 @@
 					<div flex layout-align="space-around" ng-hide="tweetsLoaded">
 						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 					</div>
-					<md-content flex>
+					<md-content flex ng-show="tweetsLoaded">
 						<md-list>
 							<md-list-item class="md-3-line" ng-repeat="tweet in tweets">
 								<img ng-src="{{ tweet.profile }}" alt="{{ tweet.name }}" class="md-avatar">
