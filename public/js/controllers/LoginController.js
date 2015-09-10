@@ -1,11 +1,9 @@
 app.controller("LoginController", ["$scope", "$mdDialog", "$http", "$rootScope", function($scope, $mdDialog, $http, $rootScope) {
 	$scope.loggedIn = false;
-	$scope.accountText = "Log In";
 	$scope.loggedInUser = "";
 
 	$scope.beLoggedIn = function(username) {
 		$scope.loggedIn = true;
-		$scope.accountText = "Account Settings"
 		$scope.loggedInUser = username;
 
 		$http.post("/getUserPreferences", {
@@ -22,17 +20,30 @@ app.controller("LoginController", ["$scope", "$mdDialog", "$http", "$rootScope",
 
 	$scope.beLoggedOut = function() {
 		$scope.loggedIn = false;
-		$scope.accountText = "Log In";
 		$scope.loggedInUser = "";
+		$http.get("/userLogout").then(function(response) {
+			console.log(response.data + " has logged out");
+		}, function(response) {
+			console.log("Failed to log out user");
+		});
+		$rootScope.$broadcast("initGenericTweets");
 	};
 
-	$scope.openAccountDialog = function(event) {
-		if ($scope.loggedIn) {
-			$scope.openAccountSettingsDialog(event);
-		} else {
-			$scope.openLoginDialog(event)
-		}
-	};
+	$scope.$on("userTimeout", function() {
+		$scope.beLoggedOut();
+	});
+
+	$scope.$on("initTB", function() {
+		$http.get("/getLoggedInUser").then(function(response) {
+			if (response.data.loggedIn) {
+				$scope.beLoggedIn(response.data.user)
+			} else {
+				$rootScope.$broadcast("initGenericTweets");
+			}
+		}, function(response) {
+			console.log("Failed to retrieve logged in user");
+		});
+	});
 
 	$scope.openLoginDialog = function(event) {
 		$mdDialog.show({

@@ -3,26 +3,56 @@ require 'json'
 
 require File.expand_path('../lib/transferbreak.rb', __FILE__)
 
+enable :sessions
+
 get '/' do
+  session["user"] ||= nil
   File.read(File.join('public', 'index.html'))
 end
+
+# Sessions
+
+get '/userLogout' do
+  loggedInUser = session["user"]
+  session["user"] = nil
+  loggedInUser.to_json
+end
+
+get '/getLoggedInUser' do
+  responseJSON = {}  
+  if session["user"] != nil
+    responseJSON["loggedIn"] = true
+    responseJSON["user"] = session["user"]
+  else 
+    responseJSON["loggedIn"] = false
+    responseJSON["user"] = nil
+  end
+  responseJSON.to_json
+end
+
+# User
 
 post '/createAccount' do
   user = User.new
   parameters = JSON.parse(request.body.read)
+  session["user"] = parameters["username"]
   user.createAccount(parameters["username"], parameters["password"], parameters["email"])
 end
 
 post '/validateLogin' do
   user = User.new
   parameters = JSON.parse(request.body.read)
-  user.validateLogin(parameters["username"], parameters["password"]).to_json()
+  validateResult = user.validateLogin(parameters["username"], parameters["password"])
+  if validateResult["valid"] == true
+    session["user"] = parameters["username"]
+  end
+  validateResult.to_json
 end
 
 post '/getUserPreferences' do
   user = User.new
   parameters = JSON.parse(request.body.read)
-  user.getPreferences(parameters["username"]).to_json()
+  user.getPreferences(parameters["username"]).to_json
 end
 
 post '/updateUserPreferences' do 
@@ -31,8 +61,16 @@ post '/updateUserPreferences' do
   user.updatePreferences(parameters["username"], parameters["twitterPrefs"], parameters["newsPrefs"])
 end
 
+# Twitter
+
 post '/getTwitterFeed' do
   twitterFeed = TwitterFeed.new
   parameters = JSON.parse(request.body.read)
-  twitterFeed.getTweets(parameters["twitterUsers"]).to_json()
+  twitterFeed.getTweets(parameters["twitterUsers"]).to_json
+end
+
+post '/checkForNewTweets' do
+  twitterFeed = TwitterFeed.new
+  parameters = JSON.parse(request.body.read)
+  twitterFeed.getNewTweets(parameters["newestDate"]).to_json
 end

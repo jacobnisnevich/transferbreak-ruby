@@ -47,9 +47,6 @@ class User
 
     validate_result = {}
 
-    p query_output.first["password_hash"]
-    p password_hash
-
     if query_output.first["password_hash"] == password_hash
       validate_result["valid"] = true 
     else

@@ -1,14 +1,25 @@
 function AccountDialogController($scope, $mdDialog, $mdToast, $http, twitterPrefs, newsPrefs) {
 	$scope.twitterPrefs = twitterPrefs;
 	$scope.newsPrefs = newsPrefs;
-	$scope.selectedItem = null;
-	$scope.searchText = null;
-	$scope.querySearch = querySearch;
-	$scope.newsOptions = [
-		"ESPN FC",
+	$scope.newsSelection = [
+		"The Guardian",
 		"TribalFootball",
-		"The Guardian"
+		"ESPN FC"
 	];
+
+	$scope.toggle = function (item, list) {
+		var index = list.indexOf(item);
+
+		if (index > -1) {
+			list.splice(index, 1);
+		} else {
+			list.push(item)
+		};
+	};
+
+	$scope.exists = function (item, list) {
+		return list.indexOf(item) > -1;
+	};
 
 	$scope.cancel = function() {
 		$mdDialog.cancel();

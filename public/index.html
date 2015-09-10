@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script src="/bower_components/angular/angular.js"></script>
+	<script src="/bower_components/angular/angular-idle.js"></script>
 	<script src="/bower_components/angular-aria/angular-aria.js"></script>
 	<script src="/bower_components/angular-animate/angular-animate.js"></script>
 	<script src="/bower_components/angular-material/angular-material.js"></script>
@@ -35,10 +36,22 @@
 					<div class="md-toolbar-tools">
 						<h2>TransferBreak</h2>
 						<span flex class="flex"></span>
-						<md-button ng-click="openAccountDialog($event)">
-							<span>{{ accountText }} &nbsp;</span>
-							<md-icon md-font-library="material-icons" class="md-light md-48">account_circle</md-icon>
-						</md-button>
+						<span ng-hide="loggedIn">
+							<md-button ng-click="openLoginDialog($event)">
+								<span>Log In &nbsp;</span>
+								<md-icon md-font-library="material-icons" class="md-light md-48">account_circle</md-icon>
+							</md-button>
+						</span>
+						<span ng-show="loggedIn">
+							<md-button ng-click="openAccountSettingsDialog($event)">
+								<span>Account Settings &nbsp;</span>
+								<md-icon md-font-library="material-icons" class="md-light md-48">account_circle</md-icon>
+							</md-button>
+							<md-button ng-click="beLoggedOut()">
+								<span>Log Out &nbsp;</span>
+								<md-icon md-font-library="material-icons" class="md-light md-48">exit_to_app</md-icon>
+							</md-button>
+						</span>
 					</div>
 				</md-toolbar>
 			</md-content>
@@ -47,9 +60,9 @@
 			<div ng-controller="NewsController" layout="column" flex="80" id="news-column">
 				<md-content></md-content>
 			</div>
-			<div ng-controller="TweetsController" layout="fill" flex id="tweets-column">
+			<div ng-controller="TweetsController" layout="column" flex id="tweets-column">
 				<md-content flex>
-					<md-toolbar class="md-accent">
+					<md-toolbar class="md-primary md-hue-1">
 						<div class="md-toolbar-tools">
 							<h2>Twitter Stream</h2>
 						</div>

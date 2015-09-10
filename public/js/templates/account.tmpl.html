@@ -18,14 +18,13 @@
 				delete-button-label="Remove Tag"
 				delete-hint="Press delete to remove tag"></md-chips>
 			<h2 class="md-title">News Feed Preferences</h2>
-			<md-chips ng-model="newsPrefs" md-autocomplete-snap md-require-match="true">
-				<md-autocomplete
-				placeholder="Enter a tag"
-				md-selected-item="ctrl.selectedItem"
-				md-search-text="ctrl.searchText"
-				md-items="item in ctrl.querySearch(ctrl.searchText)"
-				md-item-text="item.name">
-			</md-chips>
+			<div layout="row" layout-wrap="">
+				<div flex="50" ng-repeat="news in newsSelection">
+					<md-checkbox ng-checked="exists(news, newsPrefs)" ng-click="toggle(news, newsPrefs)" class="md-primary">
+						{{ news }} <span ng-if="exists(news, newsPrefs)"></span>
+					</md-checkbox>
+				</div>
+			</div>
 		</md-content>
 	</md-dialog-content>
 	<div class="md-actions" layout="row">

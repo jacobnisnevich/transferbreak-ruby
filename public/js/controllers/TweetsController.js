@@ -8,9 +8,30 @@ app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
 		"HenryWinter"
 	];
 
+	$scope.genericTwitterSources = [
+		"GuillemBalague", 
+		"DiMarzio", 
+		"TonyEvansTimes", 
+		"OliverKayTimes", 
+		"OllieHoltMirror", 
+		"HenryWinter"
+	];
+
 	$scope.tweets = {};
 
 	$scope.tweetsLoaded = false;
+
+	$scope.checkForNewTweets = function() {
+		$http.post("/getNewTweets", {
+			"newestDate": $scope.tweets[0].date
+		}).then(function(response) {
+			response.body.newTweets.forEach(function(newTweet) {
+				$scope.tweets.unshift(newTweet);
+			});
+		}, function(response) {
+			console.log("Failed to retrieve new tweets");
+		});
+	};
 
 	$scope.loadTweets = function() {
 		$http.post("/getTwitterFeed", {
@@ -28,7 +49,9 @@ app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
 		return new Date(str);
 	}
 
-	$scope.$on("initTB", function(event) {
+	$scope.$on("initGenericTweets", function(event) {
+		$scope.tweetsLoaded = false;
+		$scope.twitterSources = $scope.genericTwitterSources;
 		$scope.loadTweets();
 	});
 

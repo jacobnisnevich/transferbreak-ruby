@@ -2,8 +2,6 @@ require 'twitter'
 
 class TwitterFeed
   def initialize()
-    p ENV["TWITTER_CONSUMER_KEY"]
-    p ENV["TWITTER_CONSUMER_KEY"].class
     @client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
       config.consumer_secret     = ENV["TWITTER_CONSUMER_SECRET"]
