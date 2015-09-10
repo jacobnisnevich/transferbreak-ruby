@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.3.8)
     buftok (0.2.0)
+    certified (1.0.0)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
@@ -55,6 +56,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  certified
   mysql2
   sinatra
   twitter

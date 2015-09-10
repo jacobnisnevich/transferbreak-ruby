@@ -5,7 +5,7 @@ app.config(function($mdThemingProvider, IdleProvider) {
 		.primaryPalette('blue', {
 		'default': '500',
 		'hue-1': '400',
-		'hue-2': '700',
+		'hue-2': '300',
 		'hue-3': '100'
 	});
 	IdleProvider.idle(5);

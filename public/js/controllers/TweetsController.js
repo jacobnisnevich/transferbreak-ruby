@@ -17,17 +17,28 @@ app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
 		"HenryWinter"
 	];
 
-	$scope.tweets = {};
+	$scope.tweets = [];
+	$scope.tweetsBuffer = [];
 
 	$scope.tweetsLoaded = false;
+
+	$scope.periodicallyCheckForTweets = function(seconds) {
+		$interval(checkForNewTweets, seconds * 1000);
+	};
+
+	$scope.loadBufferedTweets = function() {
+		$scope.tweetsBuffer.forEach(function(newTweet) {
+			$scope.tweets.unshift(newTweet);
+		}).then(function() {
+			$scope.tweetsBuffer = [];
+		});
+	};
 
 	$scope.checkForNewTweets = function() {
 		$http.post("/getNewTweets", {
 			"newestDate": $scope.tweets[0].date
 		}).then(function(response) {
-			response.body.newTweets.forEach(function(newTweet) {
-				$scope.tweets.unshift(newTweet);
-			});
+			$scope.tweetsBuffer = response.body.newTweets;
 		}, function(response) {
 			console.log("Failed to retrieve new tweets");
 		});
