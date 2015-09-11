@@ -74,3 +74,17 @@ post '/checkForNewTweets' do
   parameters = JSON.parse(request.body.read)
   twitterFeed.getNewTweets(parameters["newestDate"]).to_json
 end
+
+# Search
+
+post '/lookUpPlayer' do
+  footballData = FootballData.new
+  parameters = JSON.parse(request.body.read)
+  footballData.getPlayers(parameters["query"]).to_json
+end
+
+post '/getSpecificPlayer' do
+  footballData = FootballData.new
+  parameters = JSON.parse(request.body.read)
+  footballData.getSpecificPlayer(parameters["name"], parameters["team"]).to_json
+end

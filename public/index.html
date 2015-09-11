@@ -21,14 +21,18 @@
 
 	<!-- Controllers -->
 	<script src="js/controllers/MainController.js"></script>
-	<script src="js/controllers/NewsController.js"></script>
+
+	<script src="js/controllers/BigPanelController.js"></script>
+
+	<script src="js/controllers/SearchController.js"></script>
 	<script src="js/controllers/TweetsController.js"></script>
+
 	<script src="js/controllers/LoginController.js"></script>
 	<script src="js/controllers/LoginDialogController.js"></script>
 	<script src="js/controllers/NewAccountDialogController.js"></script>
 	<script src="js/controllers/AccountDialogController.js"></script>
 </head>
-<body ng-app="TransferBreak" ng-controller="MainController" ng-init="init()">
+<body ng-app="TransferBreak" ng-controller="MainController as main" ng-init="init()">
 	<div layout="column" id="main-column">
 		<div ng-controller="LoginController" id="nav-controller">
 			<md-content>
@@ -57,8 +61,10 @@
 			</md-content>
 		</div>
 		<md-content flex layout="row" layout-align="center" id="main-row">
-			<md-sidenav id="tweets-column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-				<md-content ng-controller="TweetsController" layout="column" flex>
+			<md-sidenav id="side-column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+
+				<!-- Tweet Sidebar -->
+				<md-content ng-controller="TweetsController" layout="column" flex ng-show="main.currentView == 'twitter'">
 					<md-toolbar class="md-primary md-hue-1">
 						<div class="md-toolbar-tools">
 							<h2>Twitter Stream</h2>
@@ -86,26 +92,87 @@
 						</md-card>
 					</md-content>
 				</md-content>
+
+				<!-- Search Sidebar -->
+				<md-content ng-controller="SearchController" layout="column" flex ng-show="main.currentView == 'search'">
+					<md-toolbar class="md-primary md-hue-1">
+						<div class="md-toolbar-tools">
+							<h2>Player Look-up</h2>
+						</div>
+					</md-toolbar>
+					<md-content layout="row" flex="5" layout-align="center">
+						<md-input-container flex="95">
+							<label>Player Name</label>
+							<input ng-model="playerNameEntry" ng-change="lookUpPlayer()">
+						</md-input-container>
+					</md-content>
+					<md-divider ng-if="!$last"></md-divider>
+					<div layout="column" flex layout-align="center center" ng-hide="resultsLoaded">
+						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+					</div>
+					<md-content layout="column" flex ng-show="resultsLoaded">
+						<md-card ng-repeat="result in results">
+							<md-list-item class="md-2-line" ng-click="loadPlayer(result.name, result.team)">
+								<img ng-src="{{ result.logo }}" alt="{{ result.team }}" class="md-avatar not-rounded">
+								<div class="md-list-item-text">
+									<h3>{{ result.name }}</h3>
+									<h4>{{ result.team }}</h4>
+								</div>
+								<md-divider inset></md-divider>
+							</md-list-item>
+						</md-card>
+					</md-content>
+				</md-content>
+
 			</md-sidenav>
-			<md-content ng-controller="NewsController" flex id="news-column">
-				<md-fab-speed-dial id="my-speed-dial" md-open="fabIsOpen" md-direction="down" class="md-fling">
+			<md-content ng-controller="BigPanelController" flex id="big-column">
+
+				<!-- Speed Dial -->
+				<md-fab-speed-dial id="my-speed-dial" md-open="main.fabIsOpen" md-direction="down" class="md-fling">
 					<md-fab-trigger>
 						<md-button aria-label="menu" class="md-fab md-primary md-hue-1">
 							<md-icon md-font-library="material-icons" class="md-light md-48">menu</md-icon>
 						</md-button>
 					</md-fab-trigger>
 					<md-fab-actions>
-						<md-button aria-label="news" class="md-fab md-raised md-mini">
+						<md-button aria-label="news" class="md-fab md-raised md-mini" ng-click="main.currentView = 'twitter'">
 							<md-icon md-svg-src="icons/twitter.svg" class="md-dark md-48"></md-icon>
 						</md-button>
-						<md-button aria-label="news" class="md-fab md-raised md-mini">
+						<md-button aria-label="news" class="md-fab md-raised md-mini" ng-click="main.currentView = 'news'">
 							<md-icon md-svg-src="icons/newspaper.svg" class="md-dark md-48"></md-icon>
 						</md-button>
-						<md-button aria-label="search" class="md-fab md-raised md-mini">
+						<md-button aria-label="search" class="md-fab md-raised md-mini" ng-click="main.currentView = 'search'">
 							<md-icon md-font-library="material-icons" class="md-dark md-48">search</md-icon>
 						</md-button>
 					</md-fab-actions>
 				</md-fab-speed-dial>
+
+				<!-- Search Main Panel -->
+				<md-content layout="column" flex ng-show="main.currentView == 'search'">
+					<md-whiteframe class="md-whiteframe-z2" ng-show="playerLoaded">
+						<div layout="row" style="padding: 10px">
+							<div flex layout="row" layout-align="start start">
+								<div>
+									<img ng-src="{{ playerData.logo }}" class="player-data-img"/>
+								</div>
+								<div layout="column">
+									<div><h1 class="player-data-number">{{ playerData.jersey_number }}</h1></div>
+									<div><h1 class="player-data-name">{{ playerData.name }}</h1></div>
+									<div><h3 class="player-data-team">{{ playerData.team }}</h3></div>
+								</div>
+							</div>
+							<div flex layout="column" layout-align="end center">
+								<div><h3 class="player-data-team">{{ playerData.position }}</h3></div>
+								<div><h3 class="player-data-team">{{ playerData.nationality }}</h3></div>
+							</div>
+							<div flex layout="row" layout-align="end end">
+								<div><h3 class="player-data-team">Market Value: <b style="font-family: Roboto Slab;">{{ playerData.market_value }}</b></h3></div>
+							</div>
+						</div>
+					</md-whiteframe>
+					<md-divider ng-show="playerLoaded"></md-divider>
+				</md-content>
+
 			</md-content>
 		</md-content>
 	</div>

@@ -10,10 +10,6 @@ html, body {
 	height: 100%;
 }
 
-#tweets-column {
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-
 md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-active {
 	min-width: 400px !important;
 	width: 400px !important;
@@ -41,4 +37,29 @@ md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-a
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.not-rounded {
+	border-radius: 0% !important;
+}
+
+.player-data-img {
+	height: 128px;
+}
+
+.player-data-number {
+	margin: 0px 10px 0px;
+	font-size: 48px;
+	line-height: 56px;
+	font-weight: bold;
+	font-family: Roboto Slab;
+	color: rgb(100, 100, 100);
+}
+
+.player-data-name {
+	margin: 0px 10px 10px;
+}
+
+.player-data-team {
+	margin: 0 10px;
 }
