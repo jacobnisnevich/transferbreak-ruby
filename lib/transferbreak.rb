@@ -5,7 +5,10 @@ require File.expand_path("../transferbreak/env.rb", __FILE__) if File.exists?(Fi
 [
   'user.rb',
   'twitter_feed.rb',
-  'football_data.rb'
+  'football_data.rb',
+  'news_parser.rb',
+  'article_parser.rb',
+  'tribalfootball_parser.rb'
 ].each do |file_name|
   require File.expand_path("../transferbreak/#{file_name}", __FILE__)
 end
