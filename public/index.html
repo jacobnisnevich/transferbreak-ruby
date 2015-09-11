@@ -57,17 +57,14 @@
 			</md-content>
 		</div>
 		<md-content flex layout="row" layout-align="center" id="main-row">
-			<div ng-controller="NewsController" layout="column" flex="80" id="news-column">
-				<md-content></md-content>
-			</div>
-			<div ng-controller="TweetsController" layout="column" flex id="tweets-column">
-				<md-content flex>
+			<md-sidenav id="tweets-column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+				<md-content ng-controller="TweetsController" layout="column" flex>
 					<md-toolbar class="md-primary md-hue-1">
 						<div class="md-toolbar-tools">
 							<h2>Twitter Stream</h2>
 						</div>
 					</md-toolbar>
-					<div layout="row" layout-align="center" ng-hide="tweetsLoaded">
+					<div layout="column" flex layout-align="center center" ng-hide="tweetsLoaded">
 						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 					</div>
 					<md-content flex ng-show="tweetsLoaded">
@@ -89,7 +86,27 @@
 						</md-card>
 					</md-content>
 				</md-content>
-			</div>
+			</md-sidenav>
+			<md-content ng-controller="NewsController" flex id="news-column">
+				<md-fab-speed-dial id="my-speed-dial" md-open="fabIsOpen" md-direction="down" class="md-fling">
+					<md-fab-trigger>
+						<md-button aria-label="menu" class="md-fab md-primary md-hue-1">
+							<md-icon md-font-library="material-icons" class="md-light md-48">menu</md-icon>
+						</md-button>
+					</md-fab-trigger>
+					<md-fab-actions>
+						<md-button aria-label="news" class="md-fab md-raised md-mini">
+							<md-icon md-svg-src="icons/twitter.svg" class="md-dark md-48"></md-icon>
+						</md-button>
+						<md-button aria-label="news" class="md-fab md-raised md-mini">
+							<md-icon md-svg-src="icons/newspaper.svg" class="md-dark md-48"></md-icon>
+						</md-button>
+						<md-button aria-label="search" class="md-fab md-raised md-mini">
+							<md-icon md-font-library="material-icons" class="md-dark md-48">search</md-icon>
+						</md-button>
+					</md-fab-actions>
+				</md-fab-speed-dial>
+			</md-content>
 		</md-content>
 	</div>
 </body>

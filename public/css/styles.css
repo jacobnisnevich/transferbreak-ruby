@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+	height: 100%;
 }
 
 #main-column {
@@ -12,4 +12,33 @@ html, body {
 
 #tweets-column {
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-active {
+	min-width: 400px !important;
+	width: 400px !important;
+	max-width: 400px !important;
+}
+
+.md-light {
+	color: rgb(255,255,255) !important;
+}
+
+.md-dark {
+	color: rgb(0,0,0) !important;
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+}
+ 
+::-webkit-scrollbar-thumb {
+	background-color: rgb(120, 188, 242);
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#my-speed-dial {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
