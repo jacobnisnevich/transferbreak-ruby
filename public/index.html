@@ -79,7 +79,7 @@
 							<md-button class="md-raised md-primary md-hue-3" style="width: 100%;" ng-click="loadBufferedTweets()">Load {{ tweetsBuffer.length }} New <span ng-hide="tweetsBuffer.length <= 1">Tweets</span><span ng-hide="tweetsBuffer.length > 1">Tweet</span></md-button>
 						</md-content>
 						<md-card ng-repeat="tweet in tweets">
-							<md-list-item class="md-3-line">
+							<md-list-item class="md-3-line" ng-click="getProfilePage(tweet.user)">
 								<img ng-src="{{ tweet.profile }}" alt="{{ tweet.name }}" class="md-avatar">
 								<div class="md-list-item-text">
 									<h3>{{ tweet.name }}</h3>
@@ -177,9 +177,9 @@
 
 				<!-- Tweets Main Panel -->
 				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'twitter'">
-					<md-content layout="column" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="tweetLoaded">
+					<md-content layout="column" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 70%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="twitterLoaded">
 						<div style="width: 100%">
-
+							<img src="{{ twitterData.user_details.user_details }}" style="height: 200px; width: 200x">
 						</div>
 					</md-content>
 				</md-content>

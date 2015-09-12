@@ -1,4 +1,14 @@
 app.controller("BigPanelController", ["$scope", function($scope) {
+	// Twitter View
+
+	$scope.twitterData = {};
+	$scope.twitterLoaded = false;
+
+	$scope.$on("tweetDataLoaded", function(event, data) {
+		$scope.twitterData = data;
+		$scope.twitterLoaded = true;
+	});
+
 	// Player View
 
 	$scope.playerData = {};

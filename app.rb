@@ -75,10 +75,16 @@ post '/getTwitterFeed' do
   twitterFeed.getTweets(parameters["twitterUsers"]).to_json
 end
 
-post '/getNewTweets' do # TODO
+post '/getNewTweets' do
   twitterFeed = TwitterFeed.new
   parameters = JSON.parse(request.body.read)
   twitterFeed.getNewTweets(parameters["twitterUsers"], parameters["newestDate"]).to_json
+end
+
+post '/getProfilePage' do
+  twitterFeed = TwitterFeed.new
+  parameters = JSON.parse(request.body.read)
+  twitterFeed.getUserPage(parameters["user"]).to_json
 end
 
 # News Articles
@@ -95,10 +101,10 @@ post '/getSpecificArticle' do
   newsFeed.getSpecificArticle(parameters["link"]).to_json
 end
 
-post '/checkForNewNews' do # TODO
+post '/getNewNews' do # TODO
   newsFeed = NewsFeed.new
   parameters = JSON.parse(request.body.read)
-  newsFeed.getNewNews(parameters["newestDate"]).to_json
+  newsFeed.getNewNews(parameters["newsSources"], parameters["newestDate"]).to_json
 end
 
 # Search

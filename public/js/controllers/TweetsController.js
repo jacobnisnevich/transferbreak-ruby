@@ -1,4 +1,4 @@
-app.controller("TweetsController", ["$scope", "$http", "$interval", function($scope, $http, $interval) {
+app.controller("TweetsController", ["$scope", "$http", "$interval", "$rootScope", function($scope, $http, $interval, $rootScope) {
 	$scope.twitterSources = [
 		"GuillemBalague", 
 		"DiMarzio", 
@@ -63,6 +63,16 @@ app.controller("TweetsController", ["$scope", "$http", "$interval", function($sc
 			console.log("Error loading tweets.");
 		});
 	};
+
+	$scope.getProfilePage = function(user) {
+		$http.post("/getProfilePage", {
+			"user": user
+		}).then(function(response) {
+			$rootScope.$broadcast("tweetDataLoaded", response.data);
+		}, function(response){
+			console.log("Failed to look up twitter user: " + user);
+		});
+	}
 
 	$scope.toJsDate = function(str){
 		if(!str) return null;
