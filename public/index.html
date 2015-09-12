@@ -83,12 +83,12 @@
 								<img ng-src="{{ tweet.profile }}" alt="{{ tweet.name }}" class="md-avatar">
 								<div class="md-list-item-text">
 									<h3>{{ tweet.name }}</h3>
-									<h4><a href="{{ tweet.url }}">{{ toJsDate(tweet.date) | date: "MMM d, yyyy h:mm a" }}</a></h4>
+									<h4>{{ toJsDate(tweet.date) | date: "MMM d, yyyy h:mm a" }}</h4>
 									<p>
 										{{ tweet.text }}
 									</p>
 								</div>
-								<md-divider inset></md-divider>
+								<a href="{{ tweet.url }}"><md-icon md-font-library="material-icons" class="md-dark md-48" style="position: absolute; right: 10px; top: 10px;">launch</md-icon></a>
 							</md-list-item>
 						</md-card>
 					</md-content>
@@ -178,8 +178,35 @@
 				<!-- Tweets Main Panel -->
 				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'twitter'">
 					<md-content layout="column" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 70%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="twitterLoaded">
-						<div style="width: 100%">
-							<img src="{{ twitterData.user_details.user_details }}" style="height: 200px; width: 200x">
+						<div layout="row" style="width: 100%">
+							<div layout="column">
+								<div layout="row" layout-align="start start">
+									<div layout="column">
+										<img ng-src="{{ getLargeURL(twitterData.user_details.profile_img) }}" style="height: 200px; width: 200px; border-radius: 10%">
+									</div>
+									<div layout="column" style="width: 40%; margin: 0 20px">
+										<div><h1 style="margin: 0">{{ twitterData.user_details.name }}</h1></div>
+										<div><h3 style="margin: 0">@{{ twitterData.user_details.screen_name }}</h3></div>
+										<div><h4>{{ twitterData.user_details.description }}</h4></div>
+									</div>
+								</div>
+								<md-divider style="margin: 20px 0"></md-divider>
+								<div>
+									<md-card ng-repeat="tweet in twitterData.user_timeline_tweets">
+										<md-list-item class="md-3-line" ng-click="getProfilePage(tweet.user)">
+											<img ng-src="{{ tweet.profile }}" alt="{{ tweet.name }}" class="md-avatar">
+											<div class="md-list-item-text">
+												<h3>{{ tweet.name }}</h3>
+												<h4>{{ toJsDate(tweet.date) | date: "MMM d, yyyy h:mm a" }}</h4>
+												<p>
+													{{ tweet.text }}
+												</p>
+											</div>
+											<a href="{{ tweet.url }}"><md-icon md-font-library="material-icons" class="md-dark md-48" style="position: absolute; right: 10px; top: 10px;">launch</md-icon></a>
+										</md-list-item>
+									</md-card>
+								</div>
+							</div>
 						</div>
 					</md-content>
 				</md-content>

@@ -33,4 +33,8 @@ app.controller("BigPanelController", ["$scope", function($scope) {
 		if(!str) return null;
 		return new Date(str);
 	}
+
+	$scope.getLargeURL = function(str) {
+		return str.replace("_normal", "");
+	}
 }]);

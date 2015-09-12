@@ -84,7 +84,7 @@ app.controller("TweetsController", ["$scope", "$http", "$interval", "$rootScope"
 		$scope.twitterSources = $scope.genericTwitterSources;
 		$scope.loadTweets();
 		$scope.stopUpdateLoop();
-		$scope.periodicallyCheckForTweets(15);
+		$scope.periodicallyCheckForTweets(60);
 	});
 
 	$scope.$on("updateContent", function(event, data) {
@@ -92,6 +92,6 @@ app.controller("TweetsController", ["$scope", "$http", "$interval", "$rootScope"
 		$scope.twitterSources = data.twitterPrefs;
 		$scope.loadTweets();
 		$scope.stopUpdateLoop();
-		$scope.periodicallyCheckForTweets(15);
+		$scope.periodicallyCheckForTweets(60);
 	});
 }]);
