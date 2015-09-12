@@ -27,5 +27,5 @@ app.controller("SearchController", ["$scope", "$http", "$rootScope", function($s
 		}, function(response){
 			console.log("Failed to look up player: " + name);
 		});
-	}
+	};
 }]);

@@ -27,6 +27,7 @@ app.controller("LoginController", ["$scope", "$mdDialog", "$http", "$rootScope",
 			console.log("Failed to log out user");
 		});
 		$rootScope.$broadcast("initGenericTweets");
+		$rootScope.$broadcast("initGenericNews");
 	};
 
 	$scope.$on("userTimeout", function() {

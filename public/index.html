@@ -22,10 +22,11 @@
 	<!-- Controllers -->
 	<script src="js/controllers/MainController.js"></script>
 
-	<script src="js/controllers/BigPanelController.js"></script>
-
 	<script src="js/controllers/SearchController.js"></script>
+	<script src="js/controllers/NewsController.js"></script>
 	<script src="js/controllers/TweetsController.js"></script>
+
+	<script src="js/controllers/BigPanelController.js"></script>
 
 	<script src="js/controllers/LoginController.js"></script>
 	<script src="js/controllers/LoginDialogController.js"></script>
@@ -93,6 +94,33 @@
 					</md-content>
 				</md-content>
 
+				<!-- News Sidebar -->
+				<md-content ng-controller="NewsController" layout="column" flex ng-show="main.currentView == 'news'">
+					<md-toolbar class="md-primary md-hue-1">
+						<div class="md-toolbar-tools">
+							<h2>News Feed</h2>
+						</div>
+					</md-toolbar>
+					<div layout="column" flex layout-align="center center" ng-hide="newsLoaded">
+						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+					</div>
+					<md-content flex ng-show="newsLoaded">
+						<md-content layout="row" layout-align="center" ng-hide="!newsBuffer.length">
+							<md-button class="md-raised md-primary md-hue-3" style="width: 100%;">Load {{ newsBuffer.length }} New <span ng-hide="newsBuffer.length <= 1">Articles</span><span ng-hide="newsBuffer.length > 1">Article</span></md-button>
+						</md-content>
+						<md-card ng-repeat="article in articles">
+							<md-list-item class="md-3-line" ng-click="loadArticle(article.link)">
+								<div class="md-list-item-text">
+									<img ng-src="img/{{ removeSpaces(article.source) }}.png" alt="{{ article.source }}">
+									<h2>{{ article.title }}</h2>
+									<h4>{{ toJsDate(article.date) | date: "MMM d, yyyy h:mm a" }}</h4>
+								</div>
+								<a href="{{ article.link }}"><md-icon md-font-library="material-icons" class="md-dark md-48" style="position: absolute; bottom: 10px; right: 10px;">launch</md-icon></a>
+							</md-list-item>
+						</md-card>
+					</md-content>
+				</md-content>
+
 				<!-- Search Sidebar -->
 				<md-content ng-controller="SearchController" layout="column" flex ng-show="main.currentView == 'search'">
 					<md-toolbar class="md-primary md-hue-1">
@@ -125,7 +153,7 @@
 				</md-content>
 
 			</md-sidenav>
-			<md-content ng-controller="BigPanelController" flex id="big-column">
+			<md-content ng-controller="BigPanelController" flex layout="column" id="big-column">
 
 				<!-- Speed Dial -->
 				<md-fab-speed-dial id="my-speed-dial" md-open="main.fabIsOpen" md-direction="down" class="md-fling">
@@ -147,10 +175,36 @@
 					</md-fab-actions>
 				</md-fab-speed-dial>
 
+				<!-- Tweets Main Panel -->
+				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'twitter'">
+					<md-content layout="column" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="tweetLoaded">
+						<div style="width: 100%">
+
+						</div>
+					</md-content>
+				</md-content>
+
+				<!-- News Main Panel -->
+				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'news'">
+					<md-content layout="column" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="articleLoaded">
+						<div style="width: 100%">
+							<div><h1 style="font-family: 'Roboto Slab'">{{ articleData.title }}</h1></div>
+							<!--<div style="text-align: center">
+								<img src="{{ articleData.image }}">
+							</div>-->
+							<div style="margin-bottom: 10px">By {{ articleData.author }} &mdash; {{ toJsDate(articleData.date) | date: "MMM d, yyyy h:mm a" }}</div>
+							<md-divider></md-divider>
+							<div style="margin: 10px">
+								<div style="margin: 20px 0px" ng-repeat="paragraph in articleData.paragraphs">{{ paragraph }}</div>
+							</div>
+						</div>
+					</md-content>
+				</md-content>
+
 				<!-- Search Main Panel -->
-				<md-content layout="column" flex ng-show="main.currentView == 'search'">
-					<md-whiteframe class="md-whiteframe-z2" ng-show="playerLoaded">
-						<div layout="row" style="padding: 10px">
+				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'search'">
+					<md-content layout="row" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="playerLoaded">
+						<div layout="row" style="padding: 10px; width: 100%">
 							<div flex layout="row" layout-align="start start">
 								<div>
 									<img ng-src="{{ playerData.logo }}" class="player-data-img"/>
@@ -158,20 +212,21 @@
 								<div layout="column">
 									<div><h1 class="player-data-number">{{ playerData.jersey_number }}</h1></div>
 									<div><h1 class="player-data-name">{{ playerData.name }}</h1></div>
-									<div><h3 class="player-data-team">{{ playerData.team }}</h3></div>
+									<div><h3 class="player-data-team">{{ playerData.team }} - {{ playerData.nationality }}</h3></div>
 								</div>
 							</div>
-							<div flex layout="column" layout-align="end center">
-								<div><h3 class="player-data-team">{{ playerData.position }}</h3></div>
-								<div><h3 class="player-data-team">{{ playerData.nationality }}</h3></div>
-							</div>
-							<div flex layout="row" layout-align="end end">
-								<div><h3 class="player-data-team">Market Value: <b style="font-family: Roboto Slab;">{{ playerData.market_value }}</b></h3></div>
+							<div flex layout="column" layout-align="end end">
+								<div flex layout="column" layout-align="start end">
+									<div><h3 class="player-data-team">{{ playerData.position }}</h3></div>
+								</div>
+								<div flex layout="column" layout-align="end end">
+									<div><h3 class="player-data-team">Market Value: <b style="font-family: Roboto Slab;">{{ playerData.market_value }}</b></h3></div>
+								</div>
 							</div>
 						</div>
-					</md-whiteframe>
-					<md-divider ng-show="playerLoaded"></md-divider>
+					</md-content>
 				</md-content>
+
 
 			</md-content>
 		</md-content>

@@ -1,3 +1,5 @@
+require 'time'
+
 class TribalFootballParser < NewsParser
   def initialize()
     super("http://www.tribalfootball.com/transfers", "Tribal Football")
@@ -27,10 +29,10 @@ class TribalFootballParser < NewsParser
       articleData["link"] = articleUrl
       articleData["title"] = article.css(".article__title[itemprop='headline']").text
       articleData["author"] = article.css(".article__meta a[rel='author']").text
-      articleData["date"] = Time.new(article.css(".article__meta time[itemprop='datePublished']").attribute("datetime").value).to_s
+      articleData["date"] = Time.parse(article.css(".article__meta time[itemprop='datePublished']").attribute("datetime").value).to_s
       articleData["paragraphs"] = []
       article.css("[itemprop='articleBody'] p").each do |articleParagraph|
-        articleData["paragraphs"].push(articleParagraph.text)
+        articleData["paragraphs"].push(articleParagraph.text.force_encoding('utf-8'))
       end
       if !article.css(".article__hero img").empty?
         articleData["image"] = article.css(".article__hero img").attribute("srcset").value

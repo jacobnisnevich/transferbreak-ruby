@@ -1,6 +1,5 @@
 require 'mysql2'
-require 'digest/sha1'
-
+require 'base64'
 
 class ArticleParser
   def initialize(articleData, newsSource)
@@ -23,13 +22,13 @@ class ArticleParser
   #    @client.query(insert_transfers_query)
   #  end
 
-    articleTitle = Digest::SHA1.hexdigest(@articleData['title'])
+    articleTitle = Base64.encode64(@articleData['title'])
     articleAuthor = @articleData['author']
     articleDate = @articleData['date']
     articleImage = @articleData['image']
     articleParagraphHashes = []
     @articleData["paragraphs"].each do |paragraph|
-      articleParagraphHashes.push(Digest::SHA1.hexdigest(paragraph))
+      articleParagraphHashes.push(Base64.encode64(paragraph))
     end
     articleParagraphsString = articleParagraphHashes.to_json
     articleLink = @articleData['link']

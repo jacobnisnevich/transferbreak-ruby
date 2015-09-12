@@ -3,7 +3,7 @@ function AccountDialogController($scope, $mdDialog, $mdToast, $http, twitterPref
 	$scope.newsPrefs = newsPrefs;
 	$scope.newsSelection = [
 		"The Guardian",
-		"TribalFootball",
+		"Tribal Football",
 		"ESPN FC"
 	];
 

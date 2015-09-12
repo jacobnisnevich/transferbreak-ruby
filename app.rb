@@ -6,6 +6,11 @@ require File.expand_path('../lib/transferbreak.rb', __FILE__)
 
 enable :sessions
 
+# Test Articles Load
+#
+# tribalFootballParser = TribalFootballParser.new
+# tribalFootballParser.parseArticles
+
 get '/' do
   session["user"] ||= nil
   File.read(File.join('public', 'index.html'))
@@ -70,10 +75,30 @@ post '/getTwitterFeed' do
   twitterFeed.getTweets(parameters["twitterUsers"]).to_json
 end
 
-post '/checkForNewTweets' do
+post '/checkForNewTweets' do # TODO
   twitterFeed = TwitterFeed.new
   parameters = JSON.parse(request.body.read)
   twitterFeed.getNewTweets(parameters["newestDate"]).to_json
+end
+
+# News Articles
+
+post '/getNewsFeed' do
+  newsFeed = NewsFeed.new
+  parameters = JSON.parse(request.body.read)
+  newsFeed.getNews(parameters["newsSources"]).to_json
+end
+
+post '/getSpecificArticle' do
+  newsFeed = NewsFeed.new
+  parameters = JSON.parse(request.body.read)
+  newsFeed.getSpecificArticle(parameters["link"]).to_json
+end
+
+post '/checkForNewNews' do # TODO
+  newsFeed = NewsFeed.new
+  parameters = JSON.parse(request.body.read)
+  newsFeed.getNewNews(parameters["newestDate"]).to_json
 end
 
 # Search

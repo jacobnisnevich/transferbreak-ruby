@@ -22,7 +22,7 @@ class User
 
     @default_news_prefs = [
       "The Guardian",
-      "TribalFootball",
+      "Tribal Football",
       "ESPN FC"
     ]
   end

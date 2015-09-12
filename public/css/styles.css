@@ -24,6 +24,14 @@ md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-a
 	color: rgb(0,0,0) !important;
 }
 
+.light-blue-background {
+	background-color: #BBDEFB;
+}
+
+.dark-blue-background {
+	background-color: #0D47A1;
+}
+
 ::-webkit-scrollbar {
 	width: 12px;
 }
