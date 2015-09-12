@@ -7,6 +7,6 @@ app.controller("MainController", ["$scope", "$timeout", function($scope, $timeou
 
 	this.fabIsOpen = false;
 
-	this.currentView = "search";
+	this.currentView = "twitter";
 	$scope.views = ["twitter", "news", "search"];
 }]);

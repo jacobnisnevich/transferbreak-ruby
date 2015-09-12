@@ -75,10 +75,10 @@ post '/getTwitterFeed' do
   twitterFeed.getTweets(parameters["twitterUsers"]).to_json
 end
 
-post '/checkForNewTweets' do # TODO
+post '/getNewTweets' do # TODO
   twitterFeed = TwitterFeed.new
   parameters = JSON.parse(request.body.read)
-  twitterFeed.getNewTweets(parameters["newestDate"]).to_json
+  twitterFeed.getNewTweets(parameters["twitterUsers"], parameters["newestDate"]).to_json
 end
 
 # News Articles

@@ -1,4 +1,5 @@
 require 'twitter'
+require 'time'
 
 class TwitterFeed
   def initialize()
@@ -34,5 +35,15 @@ class TwitterFeed
     end
 
     all_tweets[0 .. 24]
+  end
+
+  def getNewTweets(user_array, newest_date)
+    all_tweets = getTweets(user_array)
+
+    newer_tweets = all_tweets.select do |x|
+      x["date"] > Time.parse(newest_date)
+    end
+
+    newer_tweets
   end
 end

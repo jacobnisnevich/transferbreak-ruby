@@ -76,7 +76,7 @@
 					</div>
 					<md-content flex ng-show="tweetsLoaded">
 						<md-content layout="row" layout-align="center" ng-hide="!tweetsBuffer.length">
-							<md-button class="md-raised md-primary md-hue-3" style="width: 100%;">Load {{ tweetsBuffer.length }} New <span ng-hide="tweetsBuffer.length <= 1">Tweets</span><span ng-hide="tweetsBuffer.length > 1">Tweet</span></md-button>
+							<md-button class="md-raised md-primary md-hue-3" style="width: 100%;" ng-click="loadBufferedTweets()">Load {{ tweetsBuffer.length }} New <span ng-hide="tweetsBuffer.length <= 1">Tweets</span><span ng-hide="tweetsBuffer.length > 1">Tweet</span></md-button>
 						</md-content>
 						<md-card ng-repeat="tweet in tweets">
 							<md-list-item class="md-3-line">

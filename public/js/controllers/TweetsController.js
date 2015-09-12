@@ -1,4 +1,4 @@
-app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
+app.controller("TweetsController", ["$scope", "$http", "$interval", function($scope, $http, $interval) {
 	$scope.twitterSources = [
 		"GuillemBalague", 
 		"DiMarzio", 
@@ -21,24 +21,33 @@ app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
 	$scope.tweetsBuffer = [];
 
 	$scope.tweetsLoaded = false;
+	$scope.stopInterval;
 
 	$scope.periodicallyCheckForTweets = function(seconds) {
-		$interval(checkForNewTweets, seconds * 1000);
+		stopInterval = $interval($scope.checkForNewTweets, seconds * 1000);
+	};
+
+	$scope.stopUpdateLoop = function() {
+		if (angular.isDefined($scope.stopInterval)) {
+			$interval.cancel($scope.stopInterval);
+			$scope.stopInterval = undefined;
+		}
 	};
 
 	$scope.loadBufferedTweets = function() {
-		$scope.tweetsBuffer.forEach(function(newTweet) {
+		$scope.tweetsBuffer.reverse().forEach(function(newTweet) {
 			$scope.tweets.unshift(newTweet);
-		}).then(function() {
-			$scope.tweetsBuffer = [];
 		});
+
+		$scope.tweetsBuffer = [];
 	};
 
 	$scope.checkForNewTweets = function() {
 		$http.post("/getNewTweets", {
+			"twitterUsers": $scope.twitterSources,
 			"newestDate": $scope.tweets[0].date
 		}).then(function(response) {
-			$scope.tweetsBuffer = response.body.newTweets;
+			$scope.tweetsBuffer = response.data;
 		}, function(response) {
 			console.log("Failed to retrieve new tweets");
 		});
@@ -64,11 +73,15 @@ app.controller("TweetsController", ["$scope", "$http", function($scope, $http) {
 		$scope.tweetsLoaded = false;
 		$scope.twitterSources = $scope.genericTwitterSources;
 		$scope.loadTweets();
+		$scope.stopUpdateLoop();
+		$scope.periodicallyCheckForTweets(15);
 	});
 
 	$scope.$on("updateContent", function(event, data) {
 		$scope.tweetsLoaded = false;
 		$scope.twitterSources = data.twitterPrefs;
 		$scope.loadTweets();
+		$scope.stopUpdateLoop();
+		$scope.periodicallyCheckForTweets(15);
 	});
 }]);
