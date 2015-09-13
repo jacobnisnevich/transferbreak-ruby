@@ -1,6 +1,5 @@
 require 'mysql2'
 require 'base64'
-require 'byebug'
 
 class NewsFeed
   def initialize()

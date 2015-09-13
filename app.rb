@@ -1,15 +1,18 @@
 require 'sinatra'
 require 'json'
-require 'treat'
 
 require File.expand_path('../lib/transferbreak.rb', __FILE__)
 
 enable :sessions
 
-# Test Articles Load
-#
-# tribalFootballParser = TribalFootballParser.new
-# tribalFootballParser.parseArticles
+Thread.abort_on_exception = true
+Thread.new do
+  while true do
+    tribalFootballParser = TribalFootballParser.new
+    tribalFootballParser.parseArticles
+    sleep 900
+  end
+end
 
 get '/' do
   session["user"] ||= nil

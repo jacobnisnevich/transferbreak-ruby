@@ -8,7 +8,6 @@ class TribalFootballParser < NewsParser
   def parseArticles()
     getArticlesList()
     getArticleData()
-
     super
   end
 

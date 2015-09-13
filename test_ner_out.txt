@@ -1,0 +1,17 @@
+######### ORIGINAL TEXT #########
+Manchester United aren’t faffing around either. They’ll be making enquiries for the £22m Sevilla striker Carlos Bacca, and the £21m Benfica midfielder Nicolás Gaitán. Liverpool are also sniffing around the latter, hoping to hijack the move, but consider Memphis Depay and let us move on without further comment.
+
+######### ORGANIZATION #########
+{"text"=>"Manchester United", "offset_start"=>"0", "offset_end"=>"18"}
+{"text"=>"Sevilla", "offset_start"=>"89", "offset_end"=>"97"}
+{"text"=>"Benfica", "offset_start"=>"132", "offset_end"=>"140"}
+{"text"=>"Liverpool", "offset_start"=>"167", "offset_end"=>"177"}
+######### LOCATION #########
+
+######### PERSON #########
+{"text"=>"Carlos Bacca", "offset_start"=>"105", "offset_end"=>"117"}
+{"text"=>"Nicol\u00E1s Gait\u00E1n", "offset_start"=>"151", "offset_end"=>"165"}
+{"text"=>"Memphis Depay", "offset_start"=>"254", "offset_end"=>"268"}
+######### MONEY #########
+{"text"=>"\u00A322,000,000.00", "offset_start"=>"84", "offset_end"=>"89"}
+{"text"=>"\u00A321,000,000.00", "offset_start"=>"127", "offset_end"=>"132"}

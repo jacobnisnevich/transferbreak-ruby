@@ -12,6 +12,7 @@
 	<script src="/bower_components/angular-aria/angular-aria.js"></script>
 	<script src="/bower_components/angular-animate/angular-animate.js"></script>
 	<script src="/bower_components/angular-material/angular-material.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700|Roboto:400,100,300,700,400italic' rel='stylesheet' type='text/css'>
 
 	<!-- App Styles -->
 	<link rel="stylesheet" href="css/styles.css">
@@ -182,7 +183,7 @@
 							<div layout="column">
 								<div layout="row" layout-align="start start">
 									<div layout="column">
-										<img ng-src="{{ getLargeURL(twitterData.user_details.profile_img) }}" style="height: 200px; width: 200px; border-radius: 10%">
+										<img ng-src="{{ twitterData.user_details.profile_img }}" style="height: 200px; width: 200px; border-radius: 10%">
 									</div>
 									<div layout="column" style="width: 40%; margin: 0 20px">
 										<div><h1 style="margin: 0">{{ twitterData.user_details.name }}</h1></div>
