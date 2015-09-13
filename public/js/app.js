@@ -12,6 +12,12 @@ app.config(function($mdThemingProvider, IdleProvider) {
 	IdleProvider.timeout(5);
 });
 
+app.filter('unsafe', function($sce) {
+	return function(val) {
+		return $sce.trustAsHtml(val);
+	};
+});
+
 app.run(function($rootScope) {
 	$rootScope.$on("IdleStart", function() {
 		console.log("You will be logged out in 60s if you remain idle...")

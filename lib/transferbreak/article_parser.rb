@@ -91,7 +91,7 @@ class ArticleParser
         if entity["tag"] == "ORGANIZATION" || entity["tag"] == "LOCATION"
           match = FuzzyMatch.new(team_names).find(entity["text"], {:find_with_score => true})
           if !match.nil?
-            if match[1] > 0.4 && match[2] > 0.4
+            if match[1] > 0.8 && match[2] > 0.8
               data["teams"].push(match[0])
               paragraph = insertTeamTagAt(paragraph, match[0], entity["offset_start"], entity["offset_end"])
             end
@@ -99,7 +99,7 @@ class ArticleParser
         elsif entity["tag"] == "PERSON"
           match = FuzzyMatch.new(player_names).find(entity["text"], {:find_with_score => true})
           if !match.nil?
-            if match[1] > 0.6 && match[2] > 0.6
+            if match[1] > 0.9 && match[2] > 0.9
               data["players"].push(match[0])
               paragraph = insertPlayerTagAt(paragraph, match[0], entity["offset_start"], entity["offset_end"])
             end

@@ -223,7 +223,9 @@
 							<div style="margin-bottom: 10px">By {{ articleData.author }} &mdash; {{ toJsDate(articleData.date) | date: "MMM d, yyyy h:mm a" }}</div>
 							<md-divider></md-divider>
 							<div style="margin: 10px">
-								<div style="margin: 20px 0px" ng-repeat="paragraph in articleData.paragraphs">{{ paragraph }}</div>
+								<div ng-repeat="paragraph in articleData.paragraphs">
+									<p ng-bind-html="paragraph | unsafe"></p>
+								</div>
 							</div>
 						</div>
 					</md-content>
