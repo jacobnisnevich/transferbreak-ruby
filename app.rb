@@ -5,14 +5,14 @@ require File.expand_path('../lib/transferbreak.rb', __FILE__)
 
 enable :sessions
 
-# Thread.abort_on_exception = true
-# Thread.new do
-#   while true do
-#     tribalFootballParser = TribalFootballParser.new
-#     tribalFootballParser.parseArticles
-#     sleep 900
-#   end
-# end
+Thread.abort_on_exception = true
+Thread.new do
+  while true do
+    tribalFootballParser = TribalFootballParser.new
+    tribalFootballParser.parseArticles
+    sleep 900
+  end
+end
 
 get '/' do
   session["user"] ||= nil
@@ -122,4 +122,10 @@ post '/getSpecificPlayer' do
   footballData = FootballData.new
   parameters = JSON.parse(request.body.read)
   footballData.getSpecificPlayer(parameters["name"], parameters["team"]).to_json
+end
+
+post '/getSpecificPlayerWithoutTeam' do
+  footballData = FootballData.new
+  parameters = JSON.parse(request.body.read)
+  footballData.getSpecificPlayerWithoutTeam(parameters["name"]).to_json
 end

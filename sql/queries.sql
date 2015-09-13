@@ -3,10 +3,16 @@ SELECT * FROM transferbreak_users;
 SELECT * FROM transferbreak_teams;
 
 SELECT COUNT(NAME) FROM transferbreak_players;
+SELECT COUNT(NAME) FROM transferbreak_player_synonyms;
+SELECT COUNT(team) FROM transferbreak_teams;
+SELECT COUNT(NAME) FROM transferbreak_team_synonyms;
 
 SELECT * FROM transferbreak_articles;
 SELECT * FROM transferbreak_player_mentions;
-SELECT * FROM transferbreak_team_mentions;
+SELECT DISTINCT * FROM transferbreak_team_mentions;
+
+SELECT * FROM transferbreak_player_synonyms;
+SELECT * FROM transferbreak_team_synonyms;
 
 SELECT m.*, a.link FROM transferbreak_player_mentions AS m, transferbreak_articles AS a WHERE a.id = m.article_id;
 SELECT m.*, a.link FROM transferbreak_team_mentions AS m, transferbreak_articles AS a WHERE a.id = m.article_id;

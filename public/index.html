@@ -7,6 +7,7 @@
 	<!-- Angular-Material CSS/JS -->
 	<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="/bower_components/angular/angular.js"></script>
 	<script src="/bower_components/angular/angular-idle.js"></script>
 	<script src="/bower_components/angular-aria/angular-aria.js"></script>
@@ -224,7 +225,7 @@
 							<md-divider></md-divider>
 							<div style="margin: 10px">
 								<div ng-repeat="paragraph in articleData.paragraphs">
-									<p ng-bind-html="paragraph | unsafe"></p>
+									<p class="article-paragraph" dynamic="html" ng-bind-html="paragraph | unsafe"></p>
 								</div>
 							</div>
 						</div>

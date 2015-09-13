@@ -21,4 +21,9 @@ class FootballData
     player_lookup_query = "SELECT p.*, t.logo FROM transferbreak_players AS p, transferbreak_teams AS t WHERE p.name LIKE '%#{name}%' AND p.team = t.team AND t.team LIKE '%#{team}%'"
     @client.query(player_lookup_query).first
   end
+
+  def getSpecificPlayerWithoutTeam(name)
+    player_lookup_query = "SELECT p.*, t.logo FROM transferbreak_players AS p, transferbreak_teams AS t WHERE p.name LIKE '%#{name}%' AND p.team = t.team"
+    @client.query(player_lookup_query).first
+  end
 end

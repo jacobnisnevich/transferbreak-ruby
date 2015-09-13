@@ -10,6 +10,14 @@ html, body {
 	height: 100%;
 }
 
+.entity-mentioned {
+	color: blue;
+}
+
+.entity-mentioned:hover {
+	cursor: pointer
+}
+
 md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-active {
 	min-width: 400px !important;
 	width: 400px !important;

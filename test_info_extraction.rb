@@ -13,7 +13,7 @@ interesting_tags = [
   "MONEY"
 ]
 
-paragraph = "Manchester United aren’t faffing around either." + 
+paragraph = "Messi isn't faffing around either." + 
   " They’ll be making enquiries for the £22m Sevilla striker" + 
   " Carlos Bacca, and the £21m Benfica midfielder Nicolás Gaitán." + 
   " Liverpool are also sniffing around the latter, hoping to" + 
@@ -34,14 +34,14 @@ define_method :push_to_array do |tag, combined_text, offset_start, offset_end|
     combined_text_hash = {
       "text" => Monetize.parse(combined_text.sub("£", " GBP ").sub("€", " EUR ")).format,
       "offset_start" => offset_start,
-      "offset_end" => offset_end
+      "offset_end" => offset_end,
       "tag" => tag
     }
   else 
     combined_text_hash = {
       "text" => combined_text,
       "offset_start" => offset_start,
-      "offset_end" => offset_end
+      "offset_end" => offset_end,
       "tag" => tag
     }
   end
@@ -65,6 +65,8 @@ paragraph.get(:sentences).each do |sentence|
   sentence.get(:tokens).to_a.each_with_index do |token, index|
     text = token.get(:original_text).to_s
     tag = token.get(:named_entity_tag).to_s
+
+    p text + ": " + tag
 
     if interesting_tags.include?(tag)
       if prev_tag == ""

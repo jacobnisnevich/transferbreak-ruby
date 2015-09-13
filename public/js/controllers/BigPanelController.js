@@ -1,4 +1,4 @@
-app.controller("BigPanelController", ["$scope", function($scope) {
+app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", function($scope, $compile, $rootScope) {
 	// Twitter View
 
 	$scope.twitterData = {};
@@ -29,12 +29,18 @@ app.controller("BigPanelController", ["$scope", function($scope) {
 		$scope.articleLoaded = true;
 	});
 
+	$scope.goToPlayerProfile = function(name) {
+		$rootScope.$broadcast("goToPlayerProfile", {
+			"name": name
+		});
+	};
+
 	$scope.toJsDate = function(str) {
 		if(!str) return null;
 		return new Date(str);
-	}
+	};
 
 	$scope.getLargeURL = function(str) {
 		return str.replace("_normal", "");
-	}
+	};
 }]);

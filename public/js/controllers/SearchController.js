@@ -28,4 +28,20 @@ app.controller("SearchController", ["$scope", "$http", "$rootScope", function($s
 			console.log("Failed to look up player: " + name);
 		});
 	};
+
+	$scope.loadPlayerWithoutTeam = function(name) {
+		$http.post("/getSpecificPlayerWithoutTeam", {
+			"name": name
+		}).then(function(response) {
+			$rootScope.$broadcast("playerDataLoaded", response.data);
+		}, function(response){
+			console.log("Failed to look up player: " + name);
+		});
+	}
+
+	$scope.$on("goToPlayerProfile", function(event, data) {
+		$scope.loadPlayerWithoutTeam(data.name);
+		$scope.playerNameEntry = data.name;
+		$scope.lookUpPlayer();
+	});
 }]);

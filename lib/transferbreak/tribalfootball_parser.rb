@@ -15,9 +15,16 @@ class TribalFootballParser < NewsParser
 
   def getArticlesList()
     articleLinks = @newsSite.css(".switcher.js-anchor.list .grid .grid__item a")
+
+    # LOAD ALL
+
     articleLinks.each do |articleLink|
       @articleUrls.push("http://www.tribalfootball.com#{articleLink["href"]}")
     end
+
+    # LOAD FIRST
+
+    # @articleUrls.push("http://www.tribalfootball.com#{articleLinks[1]["href"]}")
   end
 
   def getArticleData()
