@@ -7,6 +7,10 @@ enable :sessions
 
 Thread.abort_on_exception = true
 Thread.new do
+  StanfordCoreNLP.jar_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
+  StanfordCoreNLP.model_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
+  @pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma, :parse, :ner, :dcoref)
+  
   while true do
     tribalFootballParser = TribalFootballParser.new
     tribalFootballParser.parseArticles
@@ -102,6 +106,12 @@ post '/getSpecificArticle' do
   newsFeed = NewsFeed.new
   parameters = JSON.parse(request.body.read)
   newsFeed.getSpecificArticle(parameters["link"]).to_json
+end
+
+post '/getSpecificArticleByID' do
+  newsFeed = NewsFeed.new
+  parameters = JSON.parse(request.body.read)
+  newsFeed.getSpecificArticleByID(parameters["id"]).to_json
 end
 
 post '/getNewNews' do # TODO

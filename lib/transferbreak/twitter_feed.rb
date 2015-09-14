@@ -1,6 +1,3 @@
-require 'twitter'
-require 'time'
-
 class TwitterFeed
   def initialize()
     @client = Twitter::REST::Client.new do |config|

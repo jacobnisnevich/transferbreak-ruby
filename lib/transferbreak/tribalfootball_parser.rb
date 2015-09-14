@@ -1,5 +1,3 @@
-require 'time'
-
 class TribalFootballParser < NewsParser
   def initialize()
     super("http://www.tribalfootball.com/transfers", "Tribal Football")
@@ -8,6 +6,14 @@ class TribalFootballParser < NewsParser
   def parseArticles()
     getArticlesList()
     getArticleData()
+
+    newest_article_date_query = @client.query("SELECT date FROM transferbreak_articles WHERE source='#{@newsSource}' ORDER BY date DESC")
+    newest_article_date = newest_article_date_query.first["date"]
+
+    @articleDataArray = @articleDataArray.select do |articleData| 
+      Time.parse(articleData["date"]) > newest_article_date
+    end
+
     super
   end
 

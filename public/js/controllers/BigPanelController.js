@@ -12,10 +12,12 @@ app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", functi
 	// Player View
 
 	$scope.playerData = {};
+	$scope.playerMentions = {};
 	$scope.playerLoaded = false;
 
 	$scope.$on("playerDataLoaded", function(event, data) {
-		$scope.playerData = data;
+		$scope.playerData = data.player_info;
+		$scope.playerMentions = data.player_mentions;
 		$scope.playerLoaded = true;
 	});
 
@@ -28,6 +30,12 @@ app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", functi
 		$scope.articleData = data;
 		$scope.articleLoaded = true;
 	});
+
+	$scope.goToArticle = function(id) {
+		$rootScope.$broadcast("goToArticle", {
+			"id": id
+		});
+	}
 
 	$scope.goToPlayerProfile = function(name) {
 		$rootScope.$broadcast("goToPlayerProfile", {

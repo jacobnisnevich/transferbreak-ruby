@@ -3,6 +3,7 @@
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<title>TransferBreak</title>
+	<base target="_blank">
 
 	<!-- Angular-Material CSS/JS -->
 	<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
@@ -41,7 +42,7 @@
 			<md-content>
 				<md-toolbar>
 					<div class="md-toolbar-tools">
-						<h2>TransferBreak</h2>
+						<h2>TransferBreak </h2>
 						<span flex class="flex"></span>
 						<span ng-hide="loggedIn">
 							<md-button ng-click="openLoginDialog($event)">
@@ -236,22 +237,42 @@
 				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'search'">
 					<md-content layout="row" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="playerLoaded">
 						<div layout="row" style="padding: 10px; width: 100%">
-							<div flex layout="row" layout-align="start start">
-								<div>
-									<img ng-src="{{ playerData.logo }}" class="player-data-img"/>
-								</div>
-								<div layout="column">
-									<div><h1 class="player-data-number">{{ playerData.jersey_number }}</h1></div>
-									<div><h1 class="player-data-name">{{ playerData.name }}</h1></div>
-									<div><h3 class="player-data-team">{{ playerData.team }} - {{ playerData.nationality }}</h3></div>
-								</div>
-							</div>
-							<div flex layout="column" layout-align="end end">
-								<div flex layout="column" layout-align="start end">
-									<div><h3 class="player-data-team">{{ playerData.position }}</h3></div>
+							<div layout="column" style="width: 100%;">
+								<div flex layout="row" layout-align="start start">
+									<div>
+										<img ng-src="{{ playerData.logo }}" class="player-data-img"/>
+									</div>
+									<div layout="column">
+										<div><h1 class="player-data-number">{{ playerData.jersey_number }}</h1></div>
+										<div><h1 class="player-data-name">{{ playerData.name }}</h1></div>
+										<div><h3 class="player-data-team">{{ playerData.team }} - {{ playerData.nationality }}</h3></div>
+									</div>
 								</div>
 								<div flex layout="column" layout-align="end end">
-									<div><h3 class="player-data-team">Market Value: <b style="font-family: Roboto Slab;">{{ playerData.market_value }}</b></h3></div>
+									<div flex layout="column" layout-align="start end">
+										<div><h3 class="player-data-team">{{ playerData.position }}</h3></div>
+									</div>
+									<div flex layout="column" layout-align="end end">
+										<div><h3 class="player-data-team">Market Value: <b style="font-family: Roboto Slab;">{{ playerData.market_value }}</b></h3></div>
+									</div>
+								</div>
+								<md-divider style="margin: 20px 0"></md-divider>
+								<md-subheader class="md-no-sticky">Recent Mentions in Articles</md-subheader>
+								<div>
+									<md-card ng-repeat="mention in playerMentions">
+										<md-list-item ng-click="main.currentView = 'news'; goToArticle( mention.article_id );">
+											<div layout="row" layout-align="start center" style="width: 100%">
+												<div flex="40" style="text-overflow: ellipses">{{ mention.title }}</div>
+												<div flex="30" style="text-align: center">{{ mention.date }}</div>
+												<div flex="20" style="text-align: center">{{ mention.source }}</div>
+												<div flex="10" style="text-align: right">
+													<a href="{{ mention.link }}">
+														<md-icon md-font-library="material-icons" class="md-dark md-48">launch</md-icon>
+													</a>
+												</div>
+											</div>
+										</md-list-item>
+									</md-card>
 								</div>
 							</div>
 						</div>

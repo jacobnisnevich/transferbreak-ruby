@@ -1,9 +1,3 @@
-require 'mysql2'
-require 'base64'
-require 'stanford-core-nlp'
-require 'monetize'
-require 'fuzzy_match'
-
 class ArticleParser
   def initialize(articleData, newsSource)
     @articleData = articleData
@@ -16,10 +10,6 @@ class ArticleParser
       :password => ENV['MYSQL_PASSWORD'],
       :database => 'jacob'
     )
-
-    StanfordCoreNLP.jar_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
-    StanfordCoreNLP.model_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
-    @pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma, :parse, :ner, :dcoref)
   end
 
   def parseAndStore() 

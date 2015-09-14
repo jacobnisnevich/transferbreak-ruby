@@ -1,6 +1,3 @@
-require 'mysql2'
-require 'base64'
-
 class NewsFeed
   def initialize()
     @client = Mysql2::Client.new(
@@ -50,6 +47,30 @@ class NewsFeed
 
   def getSpecificArticle(link)
     get_specific_article_query = "SELECT * FROM transferbreak_articles WHERE link='#{link}'"
+
+    articleData = @client.query(get_specific_article_query)
+    articleData = articleData.first
+
+    decoded_article = Base64.decode64(articleData["title"])
+    decoded_article = decoded_article.force_encoding('utf-8')
+    articleData["title"] = decoded_article
+
+    articleData["paragraphs"] = articleData["paragraphs"].delete!("\n")
+    articleData["paragraphs"] = JSON.parse(articleData["paragraphs"])
+
+    new_array = []
+    articleData["paragraphs"].each do |paragraph|
+      decoded_paragraph = Base64.decode64(paragraph)
+      decoded_paragraph = decoded_paragraph.force_encoding('utf-8')
+      new_array.push(decoded_paragraph)
+    end
+    articleData["paragraphs"] = new_array
+
+    articleData
+  end
+
+  def getSpecificArticleByID(id)
+    get_specific_article_query = "SELECT * FROM transferbreak_articles WHERE id='#{id}'"
 
     articleData = @client.query(get_specific_article_query)
     articleData = articleData.first

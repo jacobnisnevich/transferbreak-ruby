@@ -55,6 +55,16 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 		});
 	};
 
+	$scope.loadArticleByID = function(id) {
+		$http.post("/getSpecificArticleByID", {
+			"id": id
+		}).then(function(response) {
+			$rootScope.$broadcast("articleDataLoaded", response.data);
+		}, function(response){
+			console.log("Failed to look up article at: " + id);
+		});
+	};
+
 	$scope.toJsDate = function(str) {
 		if(!str) return null;
 		return new Date(str);
@@ -74,5 +84,9 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 		$scope.newsLoaded = false;
 		$scope.newsSources = data.newsPrefs;
 		$scope.loadNews();
+	});
+
+	$scope.$on("goToArticle", function(event, data) {
+		$scope.loadArticleByID(data.id);
 	});
 }]);

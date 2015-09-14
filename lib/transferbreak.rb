@@ -1,4 +1,17 @@
 require 'json'
+require 'time'
+require 'base64'
+require 'byebug'
+
+require 'mysql2'
+require 'twitter'
+
+require 'stanford-core-nlp'
+require 'monetize'
+require 'fuzzy_match'
+
+require 'nokogiri'
+require 'open-uri'
 
 require File.expand_path("../transferbreak/env.rb", __FILE__) if File.exists?(File.expand_path("../transferbreak/env.rb", __FILE__))
 

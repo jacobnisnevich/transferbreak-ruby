@@ -1,6 +1,3 @@
-require 'mysql2'
-require 'json'
-
 class User
   def initialize()
     @client = Mysql2::Client.new(

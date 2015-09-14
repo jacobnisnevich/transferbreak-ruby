@@ -1,6 +1,3 @@
-require 'mysql2'
-require 'json'
-
 class FootballData
   def initialize()
     @client = Mysql2::Client.new(
@@ -19,11 +16,37 @@ class FootballData
 
   def getSpecificPlayer(name, team)
     player_lookup_query = "SELECT p.*, t.logo FROM transferbreak_players AS p, transferbreak_teams AS t WHERE p.name LIKE '%#{name}%' AND p.team = t.team AND t.team LIKE '%#{team}%'"
-    @client.query(player_lookup_query).first
+    player_info = @client.query(player_lookup_query).first
+
+    player_mentions_query = "SELECT DISTINCT m.*, a.link, a.title FROM transferbreak_player_mentions AS m, transferbreak_articles AS a WHERE m.player_name = '#{name}' AND a.id = m.article_id"
+    player_mentions = @client.query(player_mentions_query).to_a
+
+    player_mentions.each do |mention|
+      mention["title"] = Base64.decode64(mention["title"])
+    end
+
+    return_object = {}
+    return_object["player_info"] = player_info
+    return_object["player_mentions"] = player_mentions
+
+    return_object
   end
 
   def getSpecificPlayerWithoutTeam(name)
     player_lookup_query = "SELECT p.*, t.logo FROM transferbreak_players AS p, transferbreak_teams AS t WHERE p.name LIKE '%#{name}%' AND p.team = t.team"
-    @client.query(player_lookup_query).first
+    player_info = @client.query(player_lookup_query).first
+
+    player_mentions_query = "SELECT DISTINCT m.*, a.link, a.title FROM transferbreak_player_mentions AS m, transferbreak_articles AS a WHERE m.player_name = '#{name}' AND a.id = m.article_id"
+    player_mentions = @client.query(player_mentions_query).to_a
+
+    player_mentions.each do |mention|
+      mention["title"] = Base64.decode64(mention["title"])
+    end
+
+    return_object = {}
+    return_object["player_info"] = player_info
+    return_object["player_mentions"] = player_mentions
+
+    return_object
   end
 end
