@@ -193,7 +193,6 @@ class RumorExtractor
 
     rumors_array.each do |rumor|
       if !rumor["player"].nil?
-        byebug
         match = FuzzyMatch.new(player_names).find(rumor["player"], {:find_with_score => true})
         if !match.nil?
           if match[1] > 0.9 && match[2] > 0.9

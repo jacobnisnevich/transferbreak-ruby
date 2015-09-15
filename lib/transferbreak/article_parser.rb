@@ -1,6 +1,8 @@
 class ArticleParser
   def initialize(articleData, newsSource)
     @articleData = articleData
+    @articleDataRumors = @articleData.dup
+    @articleDataMentions = @articleData.dup
     @newsSource = newsSource
 
     @client = Mysql2::Client.new(
@@ -79,7 +81,7 @@ class ArticleParser
       team_name_synonyms[team["name"]] = team["synonym"]
     end
 
-    @articleData["paragraphs"].each do |paragraph|
+    @articleDataMentions["paragraphs"].each do |paragraph|
       nerTags = getNerTags(paragraph)
 
       nerTags = nerTags.sort_by{ |hash| Integer(hash['offset_start']) }.reverse
@@ -111,7 +113,7 @@ class ArticleParser
   def extractRumors()
     transferRumors = []
 
-    rumorExtractor = RumorExtractor.new(@articleData["paragraphs"])
+    rumorExtractor = RumorExtractor.new(@articleDataRumors["paragraphs"])
     transferRumors = rumorExtractor.getRumors()
 
     transferRumors
