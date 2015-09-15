@@ -6,11 +6,7 @@ require File.expand_path('../lib/transferbreak.rb', __FILE__)
 enable :sessions
 
 Thread.abort_on_exception = true
-Thread.new do
-  StanfordCoreNLP.jar_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
-  StanfordCoreNLP.model_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
-  @pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma, :parse, :ner, :dcoref)
-  
+Thread.new do  
   while true do
     tribalFootballParser = TribalFootballParser.new
     tribalFootballParser.parseArticles

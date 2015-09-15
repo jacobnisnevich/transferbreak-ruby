@@ -10,29 +10,34 @@ class ArticleParser
       :password => ENV['MYSQL_PASSWORD'],
       :database => 'jacob'
     )
+
+    StanfordCoreNLP.jar_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
+    StanfordCoreNLP.model_path = Dir.pwd + '/lib/transferbreak/stanford-nlp-models/'
+    @pipeline = StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma, :parse, :ner, :dcoref)
   end
 
   def parseAndStore() 
     articleId = Digest::SHA2.hexdigest(@articleData['link'])
     articleDate = @articleData['date']
 
-    data = extractPlayersAndTeams()
+    transferRumors = extractRumors()
+    transferRumors.each do |transferRumor|
+      if !transferRumor["player"].nil? && transferRumor["player"] != ''
+        insert_transfers_query = "INSERT IGNORE INTO transferbreak_rumors (player, `from`, `to`, fee, source, article_id, `date`) VALUES ('#{transferRumor["player"]}', '#{transferRumor["from"]}', '#{transferRumor["to"].to_json}', '#{transferRumor["fee"]}', '#{@newsSource}', '#{articleId}', '#{articleDate}' )"
+        p insert_transfers_query
+        @client.query(insert_transfers_query)
+      end
+    end
 
-    data["players"].each do |player_mentioned|
+    playerAndTeamMentions = extractPlayersAndTeams()
+    playerAndTeamMentions["players"].each do |player_mentioned|
       insert_player_mention_query = "INSERT IGNORE INTO transferbreak_player_mentions (article_id, player_name, source, date) VALUES ('#{articleId}', '#{player_mentioned}', '#{@newsSource}', '#{articleDate}')"
       @client.query(insert_player_mention_query)
     end
-
-    data["teams"].each do |team_mentioned|
+    playerAndTeamMentions["teams"].each do |team_mentioned|
       insert_team_mention_query = "INSERT IGNORE INTO transferbreak_team_mentions (article_id, team_name, source, date) VALUES ('#{articleId}', '#{team_mentioned}', '#{@newsSource}', '#{articleDate}')"
       @client.query(insert_team_mention_query)
     end
-
-  #  transferRumors = extractRumors()
-  #  transferRumors.each do |transferRumor|
-  #    insert_transfers_query = "INSERT INTO transferbreak_rumors (player, from, to, fee, source) VALUES ('#{transferRumor.player}', '#{transferRumor.from}', '#{transferRumor.to}', '#{transferRumor.fee}', '#{@newsSource}')"
-  #    @client.query(insert_transfers_query)
-  #  end
 
     articleTitle = Base64.encode64(@articleData['title'])
     articleAuthor = @articleData['author']
@@ -106,9 +111,8 @@ class ArticleParser
   def extractRumors()
     transferRumors = []
 
-    @articleData["paragraphs"].each do |paragraph|
-      nerTags = getNerTags(paragraph)
-    end
+    rumorExtractor = RumorExtractor.new(@articleData["paragraphs"])
+    transferRumors = rumorExtractor.getRumors()
 
     transferRumors
   end

@@ -20,6 +20,7 @@ require File.expand_path("../transferbreak/env.rb", __FILE__) if File.exists?(Fi
   'twitter_feed.rb',
   'news_feed.rb',
   'football_data.rb',
+  'rumor_extractor.rb',
   'news_parser.rb',
   'article_parser.rb',
   'tribalfootball_parser.rb'

@@ -1,0 +1,53 @@
+========
+EXAMPLES
+========
+
+1. Spanish clubs Valencia and Atletico Madrid are believed to be tracking Nathan Oduwa's form at Rangers.
+
+2. Bolton and Cardiff City are showing interest in Manchester United's James Wilson.
+
+3. Manchester United were reportedly prepared to pay a record-breaking transfer fee for Bayern Munich's Thomas Muller.
+
+4. Arsenal are reportedly keeping tabs on Anderlecht midfielder Youri Tielemans and may table a bid for the teenager once the January transfer window opens.
+
+5. Newcastle United are still interested in Queens Park Rangers striker Charlie Austin, according to Toon boss Steve McClaren.
+
+6. Burnley defender Michael Keane is reportedly the subject of interest from Newcastle United and Everton.
+
+7. Birmingham winger Demarai Gray is reportedly on the radar of German Champions Bayern Munich.
+
+8. Inter Milan chief Piero Ausilio insists they were never interested in Mario Balotelli.
+
+9. Liverpool and Manchester United are battling for Brazilian teenager Fabricio Oya.
+
+10. Manchester City boss Manuel Pellegrini is coy over whether they made a summer push for Juventus midfielder Paul Pogba.
+
+========
+PATTERNS
+========
+
+NEGATION = not OR no OR never OR aren't OR will not OR are not
+INTEREST = tracking OR interested in OR keeping tabs on OR showing interest in OR battling for OR madee a push for
+HAS INTEREST = subject of interest OR on the radar
+COACH = (boss OR chief OR manager OR coach OR chairman OR president) (PERSON)
+TARGET = (PERSON) OR (ORGANIZATION)'s (PERSON) OR (ORGANIZATION) (POSITION) (PERSON)
+
+1. (ORGANIZATION) and (ORGANIZATION) ... (INTEREST) (TARGET)
+
+2. (ORGANIZATION) and (ORGANIZATION) ... (INTEREST) (TARGET)
+
+3. (ORGANIZATION) ... (prepared to pay) (FEE) ... (TARGET)
+
+4. (ORGANIZATION) ... (INTEREST) ... (TARGET) ...
+
+5. (ORGANIZATION) ... (INTEREST) ... (TARGET) ...
+
+6. (TARGET) ... (HAS INTEREST) ... (ORGANIZATION) and (ORGANIZATION)
+
+7. (TARGET) ... (HAS INTEREST) ... (ORGANIZATION)
+
+8. (ORGANIZATION) (COACH) ... (NEGATION) (INTEREST) ... (TARGET)
+
+9. (ORGANIZATION) and (ORGANIZATION) ... (INTEREST) ... (TARGET)
+
+10. (ORGANIZATION) (COACH) ... (INTEREST) ... (TARGET)

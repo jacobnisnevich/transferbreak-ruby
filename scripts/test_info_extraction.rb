@@ -13,7 +13,7 @@ interesting_tags = [
   "MONEY"
 ]
 
-paragraph = "Messi isn't faffing around either." + 
+paragraph = "Manchester United aren't isn't faffing around either." + 
   " They’ll be making enquiries for the £22m Sevilla striker" + 
   " Carlos Bacca, and the £21m Benfica midfielder Nicolás Gaitán." + 
   " Liverpool are also sniffing around the latter, hoping to" + 
