@@ -17,5 +17,5 @@ SELECT m.*, a.link FROM transferbreak_team_mentions AS m, transferbreak_articles
 SELECT twitter_preferences, news_preferences FROM transferbreak_user_preferences WHERE username="jacob.nisnevich";
 UPDATE transferbreak_user_preferences SET twitter_preferences="", news_preferences="" WHERE username="jacob.nisnevich";
 
-SELECT * FROM transferbreak_rumors
+SELECT * FROM transferbreak_rumors;
 DELETE FROM transferbreak_rumors WHERE player=''
