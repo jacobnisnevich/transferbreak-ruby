@@ -11,9 +11,17 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 	$scope.articlesBuffer = [];
 
 	$scope.newsLoaded = false;
+	$scope.stopInterval;
 
 	$scope.periodicallyCheckForNews = function(seconds) {
-		$interval(checkForNewNews, seconds * 1000);
+		$scope.stopInterval = $interval(checkForNewNews, seconds * 1000);
+	};
+
+	$scope.stopUpdateLoop = function() {
+		if (angular.isDefined($scope.stopInterval)) {
+			$interval.cancel($scope.stopInterval);
+			$scope.stopInterval = undefined;
+		}
 	};
 
 	$scope.loadBufferedNews = function() {
@@ -79,12 +87,16 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 		$scope.newsLoaded = false;
 		$scope.newsSources = $scope.genericNewsSources;
 		$scope.loadNews();
+		$scope.stopUpdateLoop();
+		$scope.periodicallyCheckForNews(60);
 	});
 
 	$scope.$on("updateContent", function(event, data) {
 		$scope.newsLoaded = false;
 		$scope.newsSources = data.newsPrefs;
 		$scope.loadNews();
+		$scope.stopUpdateLoop();
+		$scope.periodicallyCheckForNews(60);
 	});
 
 	$scope.$on("goToArticle", function(event, data) {

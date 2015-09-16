@@ -24,7 +24,7 @@ app.controller("TweetsController", ["$scope", "$http", "$interval", "$rootScope"
 	$scope.stopInterval;
 
 	$scope.periodicallyCheckForTweets = function(seconds) {
-		stopInterval = $interval($scope.checkForNewTweets, seconds * 1000);
+		$scope.stopInterval = $interval($scope.checkForNewTweets, seconds * 1000);
 	};
 
 	$scope.stopUpdateLoop = function() {
