@@ -19,18 +19,19 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 	$scope.loadBufferedNews = function() {
 		$scope.articlesBuffer.forEach(function(newArticle) {
 			$scope.articles.unshift(newArticle);
-		}).then(function() {
-			$scope.articlesBuffer = [];
 		});
+
+		$scope.articlesBuffer = [];
 	};
 
 	$scope.checkForNewNews = function() {
 		$http.post("/getNewNews", {
+			"newsSources": $scope.newsSources,
 			"newestDate": $scope.articles[0].date
 		}).then(function(response) {
 			$scope.articlesBuffer = response.body.newNews;
 		}, function(response) {
-			console.log("Failed to retrieve new articles");
+			console.log("Failed to retrieve new articles.");
 		});
 	};
 

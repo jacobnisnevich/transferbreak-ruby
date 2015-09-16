@@ -98,6 +98,12 @@ post '/getNewsFeed' do
   newsFeed.getNews(parameters["newsSources"]).to_json
 end
 
+post '/getNewNews' do
+  newsFeed = NewsFeed.new
+  parameters = JSON.parse(request.body.read)
+  newsFeed.getNewNews(parameters["newsSources"], parameters["newestDate"]).to_json
+end
+
 post '/getSpecificArticle' do
   newsFeed = NewsFeed.new
   parameters = JSON.parse(request.body.read)
