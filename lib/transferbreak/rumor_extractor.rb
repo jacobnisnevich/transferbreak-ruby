@@ -63,7 +63,12 @@ class RumorExtractor
       "on the radar",
       "prepared to pay",
       "prepared to bid",
-      "made a summer push for"
+      "made a summer push for",
+      "hunt",
+      "targetting",
+      "target",
+      "going after",
+      "are after"
     ]
 
     @interesting_tags = [
@@ -102,7 +107,7 @@ class RumorExtractor
       paragraph_rumors.push(combined_rumor)
     end
 
-    paragraph_rumors = mergeSimilarRumors(paragraph_rumors)
+    paragraph_rumors = mergeRumors(paragraph_rumors)
     paragraph_rumors = nullifyEmptyFields(paragraph_rumors)
     paragraph_rumors = verifyPlayersAndTeams(paragraph_rumors)
 
@@ -143,16 +148,14 @@ class RumorExtractor
     tagged_text
   end
 
-  def mergeSimilarRumors(rumors_array)
+  def mergeRumors(rumors_array)
     rumors_array.each do |rumor|
       rumors_array.each do |rumor_inner|
-        if rumor["player"] == rumor_inner["player"]
-          rumor.merge!(rumor_inner)
-        end
+        rumor.merge!(rumor_inner)
       end
     end
 
-    rumors_array
+    [rumors_array[0]]
   end
 
   def nullifyEmptyFields(rumors_array)
@@ -191,6 +194,8 @@ class RumorExtractor
       team_name_synonyms[team["name"]] = team["synonym"]
     end
 
+    p rumors_array
+
     rumors_array.each do |rumor|
       if !rumor["player"].nil?
         match = FuzzyMatch.new(player_names).find(rumor["player"], {:find_with_score => true})
@@ -198,6 +203,8 @@ class RumorExtractor
           if match[1] > 0.9 && match[2] > 0.9
             rumor["player"] = player_name_synonyms[match[0]]
           end
+        else 
+          rumors_array.delete_at(rumors_array.index(rumor))
         end
       end
       if !rumor["from"].nil?
@@ -206,6 +213,8 @@ class RumorExtractor
           if match[1] > 0.8 && match[2] > 0.8
             rumor["from"] = team_name_synonyms[match[0]]
           end
+        else 
+          rumors_array.delete_at(rumors_array.index(rumor))
         end
       end
       if !rumor["to"].nil?
@@ -215,12 +224,27 @@ class RumorExtractor
             if match[1] > 0.8 && match[2] > 0.8
               destination = team_name_synonyms[match[0]]
             end
+          else 
+            rumor["to"].delete_at(rumor["to"].index(destination))
           end
         end
       end
     end
 
+    p rumors_array
+
+    byebug
+
     rumors_array
+  end
+
+  def fillFromWhereEmpty(rumors_array)
+    rumors_array.each do |rumor|
+      if rumor["from"].nil? || rumor["from"] == "" || rumor["from"] == "null"
+        result = @client.query("SELECT team FROM transferbreak_players WHERE name='#{rumor["player"]}'")
+        rumor["from"] = result["team"]
+      end
+    end
   end
 
   def mergeAdjacentXMLTags(text)
