@@ -108,8 +108,8 @@
 						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 					</div>
 					<md-content flex ng-show="newsLoaded">
-						<md-content layout="row" layout-align="center" ng-hide="!newsBuffer.length">
-							<md-button class="md-raised md-primary md-hue-3" style="width: 100%;" ng-click="loadBufferedNews()">Load {{ newsBuffer.length }} New <span ng-hide="newsBuffer.length <= 1">Articles</span><span ng-hide="newsBuffer.length > 1">Article</span></md-button>
+						<md-content layout="row" layout-align="center" ng-hide="!articlesBuffer.length">
+							<md-button class="md-raised md-primary md-hue-3" style="width: 100%;" ng-click="loadBufferedNews()">Load {{ articlesBuffer.length }} New <span ng-hide="articlesBuffer.length <= 1">Articles</span><span ng-hide="articlesBuffer.length > 1">Article</span></md-button>
 						</md-content>
 						<md-card ng-repeat="article in articles">
 							<md-list-item class="md-3-line" ng-click="loadArticle(article.link)">

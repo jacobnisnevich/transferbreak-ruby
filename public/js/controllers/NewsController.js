@@ -1,4 +1,4 @@
-app.controller("NewsController", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http) {
+app.controller("NewsController", ["$scope", "$rootScope", "$http", "$interval", function($scope, $rootScope, $http, $interval) {
 	$scope.newsSources = [
 		"Tribal Football"
 	];
@@ -14,7 +14,7 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 	$scope.stopInterval;
 
 	$scope.periodicallyCheckForNews = function(seconds) {
-		$scope.stopInterval = $interval(checkForNewNews, seconds * 1000);
+		$scope.stopInterval = $interval($scope.checkForNewNews, seconds * 1000);
 	};
 
 	$scope.stopUpdateLoop = function() {
@@ -37,7 +37,7 @@ app.controller("NewsController", ["$scope", "$rootScope", "$http", function($sco
 			"newsSources": $scope.newsSources,
 			"newestDate": $scope.articles[0].date
 		}).then(function(response) {
-			$scope.articlesBuffer = response.body.newNews;
+			$scope.articlesBuffer = response.data;
 		}, function(response) {
 			console.log("Failed to retrieve new articles.");
 		});

@@ -49,9 +49,13 @@ class NewsFeed
     all_news = []
 
     source_array.each do |source|
-      get_news_source_query = "SELECT * FROM transferbreak_articles WHERE source='#{source}' AND date > '#{newest_date}'"
+      get_news_source_query = "SELECT * FROM transferbreak_articles WHERE source='#{source}' AND `date` > '#{newest_date}'"
       news_query_result = @client.query(get_news_source_query)
       all_news = all_news.concat(news_query_result.to_a)
+    end
+
+    if all_news.count == 0
+      return []
     end
 
     all_news.sort! do |a, b|
