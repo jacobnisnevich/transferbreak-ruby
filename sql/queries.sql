@@ -9,7 +9,7 @@ SELECT * FROM transferbreak_player_mentions;
 SELECT * FROM transferbreak_player_synonyms;
 SELECT * FROM transferbreak_team_synonyms;
 
-SELECT DATE FROM transferbreak_articles ORDER BY DATE DESC;
+SELECT * FROM transferbreak_articles ORDER BY DATE DESC;
 
 SELECT m.*, a.link FROM transferbreak_player_mentions AS m, transferbreak_articles AS a WHERE a.id = m.article_id;
 SELECT m.*, a.link FROM transferbreak_team_mentions AS m, transferbreak_articles AS a WHERE a.id = m.article_id;

@@ -25,6 +25,7 @@ class RumorExtractor
       "keeper",
       "left midfielder",
       "left winger",
+      "fullback",
       "left-back",
       "left back",
       "right midfielder",
@@ -68,7 +69,8 @@ class RumorExtractor
       "targetting",
       "target",
       "going after",
-      "are after"
+      "are after",
+      "eyeing"
     ]
 
     @interesting_tags = [
@@ -194,17 +196,19 @@ class RumorExtractor
       team_name_synonyms[team["name"]] = team["synonym"]
     end
 
-    p rumors_array
-
     rumors_array.each do |rumor|
       if !rumor["player"].nil?
         match = FuzzyMatch.new(player_names).find(rumor["player"], {:find_with_score => true})
         if !match.nil?
           if match[1] > 0.9 && match[2] > 0.9
             rumor["player"] = player_name_synonyms[match[0]]
+          else 
+            rumors_array.delete_at(rumors_array.index(rumor))
+            break
           end
         else 
           rumors_array.delete_at(rumors_array.index(rumor))
+          break
         end
       end
       if !rumor["from"].nil?
@@ -212,9 +216,13 @@ class RumorExtractor
         if !match.nil?
           if match[1] > 0.8 && match[2] > 0.8
             rumor["from"] = team_name_synonyms[match[0]]
+          else 
+            rumors_array.delete_at(rumors_array.index(rumor))
+            break
           end
         else 
           rumors_array.delete_at(rumors_array.index(rumor))
+          break
         end
       end
       if !rumor["to"].nil?
@@ -223,17 +231,17 @@ class RumorExtractor
           if !match.nil?
             if match[1] > 0.8 && match[2] > 0.8
               destination = team_name_synonyms[match[0]]
+            else 
+              rumor["to"].delete_at(rumor["to"].index(destination))
+              break
             end
           else 
             rumor["to"].delete_at(rumor["to"].index(destination))
+            break
           end
         end
       end
     end
-
-    p rumors_array
-
-    byebug
 
     rumors_array
   end
@@ -241,6 +249,7 @@ class RumorExtractor
   def fillFromWhereEmpty(rumors_array)
     rumors_array.each do |rumor|
       if rumor["from"].nil? || rumor["from"] == "" || rumor["from"] == "null"
+        byebug
         result = @client.query("SELECT team FROM transferbreak_players WHERE name='#{rumor["player"]}'")
         rumor["from"] = result["team"]
       end

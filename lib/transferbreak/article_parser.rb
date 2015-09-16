@@ -26,7 +26,6 @@ class ArticleParser
     transferRumors.each do |transferRumor|
       if !transferRumor["player"].nil? && transferRumor["player"] != ''
         insert_transfers_query = "INSERT IGNORE INTO transferbreak_rumors (player, `from`, `to`, fee, source, article_id, `date`) VALUES ('#{transferRumor["player"]}', '#{transferRumor["from"]}', '#{transferRumor["to"].to_json}', '#{transferRumor["fee"]}', '#{@newsSource}', '#{articleId}', '#{articleDate}' )"
-        p insert_transfers_query
         @client.query(insert_transfers_query)
       end
     end
