@@ -14,6 +14,8 @@ app.config(function($mdThemingProvider, IdleProvider) {
 
 app.filter('unsafe', function($sce) {
 	return function(val) {
+		val = val.replace(/goToTeamProfile\(\"(.*)\"\); main.currentView = \"search\"/, "goToTeamProfile(\"$1\"); main.currentView = \"teamSearch\"");
+		val = val.replace(/goToPlayerProfile\(\"(.*)\"\); main.currentView = \"search\"/, "goToPlayerProfile(\"$1\"); main.currentView = \"playerSearch\"");
 		return $sce.trustAsHtml(val);
 	};
 });

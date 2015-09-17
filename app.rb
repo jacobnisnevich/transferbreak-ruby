@@ -122,7 +122,7 @@ post '/getNewNews' do # TODO
   newsFeed.getNewNews(parameters["newsSources"], parameters["newestDate"]).to_json
 end
 
-# Search
+# Player Search
 
 post '/lookUpPlayer' do
   footballData = FootballData.new
@@ -140,4 +140,18 @@ post '/getSpecificPlayerWithoutTeam' do
   footballData = FootballData.new
   parameters = JSON.parse(request.body.read)
   footballData.getSpecificPlayerWithoutTeam(parameters["name"]).to_json
+end
+
+# Team Search
+
+post '/lookUpTeam' do
+  footballData = FootballData.new
+  parameters = JSON.parse(request.body.read)
+  footballData.getTeams(parameters["query"]).to_json
+end
+
+post '/getSpecificTeam' do
+  footballData = FootballData.new
+  parameters = JSON.parse(request.body.read)
+  footballData.getSpecificTeam(parameters["team"]).to_json
 end

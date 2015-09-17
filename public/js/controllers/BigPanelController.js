@@ -21,6 +21,20 @@ app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", functi
 		$scope.playerLoaded = true;
 	});
 
+	// Team View
+
+	$scope.teamData = {};
+	$scope.teamMentions = {};
+	$scope.teamRoster = {};
+	$scope.teamLoaded = false;
+
+	$scope.$on("teamDataLoaded", function(event, data) {
+		$scope.teamData = data.team_info;
+		$scope.teamMentions = data.team_mentions;
+		$scope.teamRoster = data.team_roster;
+		$scope.teamLoaded = true;
+	});
+
 	// Article View
 
 	$scope.articleData = {};
@@ -40,6 +54,12 @@ app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", functi
 	$scope.goToPlayerProfile = function(name) {
 		$rootScope.$broadcast("goToPlayerProfile", {
 			"name": name
+		});
+	};
+
+	$scope.goToTeamProfile = function(team) {
+		$rootScope.$broadcast("goToTeamProfile", {
+			"team": team
 		});
 	};
 

@@ -1,4 +1,4 @@
-app.controller("SearchController", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope) {
+app.controller("PlayerSearchController", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope) {
 	$scope.playerNameEntry = "";
 
 	$scope.resultsLoaded = true;

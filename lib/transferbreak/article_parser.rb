@@ -120,13 +120,13 @@ class ArticleParser
 
   def insertTeamTagAt(paragraph, team_name, offset_start, offset_end)
     paragraph = paragraph.insert(Integer(offset_end), "</a>")
-    paragraph = paragraph.insert(Integer(offset_start), "<a class='entity-mentioned' ng-click='goToTeamProfile(\"#{team_name}\"); main.currentView = \"search\"'>")
+    paragraph = paragraph.insert(Integer(offset_start), "<a class='entity-mentioned' ng-click='goToTeamProfile(\"#{team_name}\"); main.currentView = \"teamSearch\"'>")
     paragraph
   end
 
   def insertPlayerTagAt(paragraph, player_name, offset_start, offset_end)
     paragraph = paragraph.insert(Integer(offset_end), "</a>")
-    paragraph = paragraph.insert(Integer(offset_start), "<a class='entity-mentioned' ng-click='goToPlayerProfile(\"#{player_name}\"); main.currentView = \"search\"'>")
+    paragraph = paragraph.insert(Integer(offset_start), "<a class='entity-mentioned' ng-click='goToPlayerProfile(\"#{player_name}\"); main.currentView = \"playerSearch\"'>")
     paragraph
   end
 

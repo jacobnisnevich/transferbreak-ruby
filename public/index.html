@@ -25,9 +25,10 @@
 	<!-- Controllers -->
 	<script src="js/controllers/MainController.js"></script>
 
-	<script src="js/controllers/SearchController.js"></script>
-	<script src="js/controllers/NewsController.js"></script>
 	<script src="js/controllers/TweetsController.js"></script>
+	<script src="js/controllers/NewsController.js"></script>
+	<script src="js/controllers/PlayerSearchController.js"></script>
+	<script src="js/controllers/TeamSearchController.js"></script>
 
 	<script src="js/controllers/BigPanelController.js"></script>
 
@@ -124,8 +125,8 @@
 					</md-content>
 				</md-content>
 
-				<!-- Search Sidebar -->
-				<md-content ng-controller="SearchController" layout="column" flex ng-show="main.currentView == 'search'">
+				<!-- Player Search Sidebar -->
+				<md-content ng-controller="PlayerSearchController" layout="column" flex ng-show="main.currentView == 'playerSearch'">
 					<md-toolbar class="md-primary md-hue-1">
 						<div class="md-toolbar-tools">
 							<h2>Player Look-up</h2>
@@ -155,6 +156,36 @@
 					</md-content>
 				</md-content>
 
+				<!-- Team Search Sidebar -->
+				<md-content ng-controller="TeamSearchController" layout="column" flex ng-show="main.currentView == 'teamSearch'">
+					<md-toolbar class="md-primary md-hue-1">
+						<div class="md-toolbar-tools">
+							<h2>Team Look-up</h2>
+						</div>
+					</md-toolbar>
+					<md-content layout="row" flex="5" layout-align="center">
+						<md-input-container flex="95">
+							<label>Team Name</label>
+							<input ng-model="teamNameEntry" ng-change="lookUpTeam()">
+						</md-input-container>
+					</md-content>
+					<md-divider ng-if="!$last"></md-divider>
+					<div layout="column" flex layout-align="center center" ng-hide="resultsLoaded">
+						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+					</div>
+					<md-content layout="column" flex ng-show="resultsLoaded">
+						<md-card ng-repeat="result in results">
+							<md-list-item class="md-2-line" ng-click="loadTeam(result.team)">
+								<img ng-src="{{ result.logo }}" alt="{{ result.team }}" class="md-avatar not-rounded">
+								<div class="md-list-item-text">
+									<h3>{{ result.team }}</h3>
+									<h4>{{ result.league }}</h4>
+								</div>
+								<md-divider inset></md-divider>
+							</md-list-item>
+						</md-card>
+					</md-content>
+				</md-content>
 			</md-sidenav>
 			<md-content ng-controller="BigPanelController" flex layout="column" id="big-column">
 
@@ -172,8 +203,11 @@
 						<md-button aria-label="news" class="md-fab md-raised md-mini" ng-click="main.currentView = 'news'">
 							<md-icon md-svg-src="icons/newspaper.svg" class="md-dark md-48"></md-icon>
 						</md-button>
-						<md-button aria-label="search" class="md-fab md-raised md-mini" ng-click="main.currentView = 'search'">
-							<md-icon md-font-library="material-icons" class="md-dark md-48">search</md-icon>
+						<md-button aria-label="playerSearch" class="md-fab md-raised md-mini" ng-click="main.currentView = 'playerSearch'">
+							<md-icon md-font-library="material-icons" class="md-dark md-48">person</md-icon>
+						</md-button>
+						<md-button aria-label="teamSearch" class="md-fab md-raised md-mini" ng-click="main.currentView = 'teamSearch'">
+							<md-icon md-font-library="material-icons" class="md-dark md-48">group</md-icon>
 						</md-button>
 					</md-fab-actions>
 				</md-fab-speed-dial>
@@ -233,8 +267,8 @@
 					</md-content>
 				</md-content>
 
-				<!-- Search Main Panel -->
-				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'search'">
+				<!-- Player Search Main Panel -->
+				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'playerSearch'">
 					<md-content layout="row" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="playerLoaded">
 						<div layout="row" style="padding: 10px; width: 100%">
 							<div layout="column" style="width: 100%;">
@@ -279,6 +313,63 @@
 					</md-content>
 				</md-content>
 
+				<!-- Team Search Main Panel -->
+				<md-content flex layout="row" layout-align="center start" class="light-blue-background" ng-show="main.currentView == 'teamSearch'">
+					<md-content layout="row" layout-align="center start" layout-padding style="padding: 24px; margin-top: 24px; width: 80%; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 2px 2px 0px rgba(0, 0, 0, 0.098), 0px 1px 5px 0px rgba(0, 0, 0, 0.084);" ng-show="teamLoaded">
+						<div layout="row" style="padding: 10px; width: 100%">
+							<div layout="column" style="width: 100%;">
+								<div layout="row" style="width: 100%;">
+									<div flex layout="row" layout-align="start start">
+										<div>
+											<img ng-src="{{ teamData.logo }}" class="player-data-img"/>
+										</div>
+										<div layout="column">
+											<div><h1 class="player-data-name">{{ teamData.team }}</h1></div>
+											<div><h2 class="player-data-team">{{ teamData.league }}</h2></div>
+										</div>
+									</div>
+									<div flex layout="column" layout-align="end end">
+										<div flex layout="column" layout-align="start end">
+											<div><h2 class="player-data-nation">{{ teamData.nation }}</h2></div>
+										</div>
+									</div>
+								</div>
+								<md-divider style="margin: 20px 0"></md-divider>
+								<md-subheader class="md-no-sticky">Recent Mentions in Articles</md-subheader>
+								<div>
+									<md-card ng-repeat="mention in teamMentions">
+										<md-list-item ng-click="main.currentView = 'news'; goToArticle( mention.article_id );">
+											<div layout="row" layout-align="start center" style="width: 100%">
+												<div flex="40" style="text-overflow: ellipses">{{ mention.title }}</div>
+												<div flex="30" style="text-align: center">{{ mention.date }}</div>
+												<div flex="20" style="text-align: center">{{ mention.source }}</div>
+												<div flex="10" style="text-align: right">
+													<a href="{{ mention.link }}">
+														<md-icon md-font-library="material-icons" class="md-dark md-48">launch</md-icon>
+													</a>
+												</div>
+											</div>
+										</md-list-item>
+									</md-card>
+								</div>
+								<md-divider style="margin: 20px 0"></md-divider>
+								<md-subheader class="md-no-sticky">Player Roster</md-subheader>
+								<div>
+									<md-card ng-repeat="player in teamRoster">
+										<md-list-item ng-click="main.currentView = 'playerSearch'; goToPlayerProfile( player.name );">
+											<div layout="row" layout-align="start center" style="width: 100%">
+												<div flex="10" style="text-overflow: ellipses">{{ player.jersey_number }}</div>
+												<div flex="40" style="text-overflow: ellipses">{{ player.name }}</div>
+												<div flex="30" style="text-align: center">{{ player.position }}</div>
+												<div flex="20" style="text-align: center">{{ player.market_value }}</div>
+											</div>
+										</md-list-item>
+									</md-card>
+								</div>
+							</div>
+						</div>
+					</md-content>
+				</md-content>
 
 			</md-content>
 		</md-content>
