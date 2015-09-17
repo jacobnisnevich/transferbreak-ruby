@@ -42,7 +42,7 @@ class FootballData
     player_mentions = @client.query(player_mentions_query).to_a
 
     player_mentions.each do |mention|
-      mention["title"] = Base64.decode64(mention["title"])
+      mention["title"] = Base64.decode64(mention["title"]).force_encoding('utf-8')
     end
 
     return_object = {}
@@ -72,8 +72,6 @@ class FootballData
 
     team_roster_query = "SELECT * FROM transferbreak_players WHERE team = '#{team}'"
     team_roster = @client.query(team_roster_query).to_a
-
-    byebug
 
     return_object = {}
     return_object["team_info"] = team_info
