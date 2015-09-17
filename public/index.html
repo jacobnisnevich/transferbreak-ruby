@@ -8,13 +8,15 @@
 	<!-- Angular-Material CSS/JS -->
 	<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700|Roboto:400,100,300,700,400italic' rel='stylesheet' type='text/css'>
+	<link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="/bower_components/angular/angular.js"></script>
 	<script src="/bower_components/angular/angular-idle.js"></script>
 	<script src="/bower_components/angular-aria/angular-aria.js"></script>
 	<script src="/bower_components/angular-animate/angular-animate.js"></script>
 	<script src="/bower_components/angular-material/angular-material.js"></script>
-	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700|Roboto:400,100,300,700,400italic' rel='stylesheet' type='text/css'>
+	<script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
 
 	<!-- App Styles -->
 	<link rel="stylesheet" href="css/styles.css">
@@ -335,36 +337,62 @@
 									</div>
 								</div>
 								<md-divider style="margin: 20px 0"></md-divider>
-								<md-subheader class="md-no-sticky">Recent Mentions in Articles</md-subheader>
 								<div>
-									<md-card ng-repeat="mention in teamMentions">
-										<md-list-item ng-click="main.currentView = 'news'; goToArticle( mention.article_id );">
-											<div layout="row" layout-align="start center" style="width: 100%">
-												<div flex="40" style="text-overflow: ellipses">{{ mention.title }}</div>
-												<div flex="30" style="text-align: center">{{ mention.date }}</div>
-												<div flex="20" style="text-align: center">{{ mention.source }}</div>
-												<div flex="10" style="text-align: right">
-													<a href="{{ mention.link }}">
-														<md-icon md-font-library="material-icons" class="md-dark md-48">launch</md-icon>
-													</a>
-												</div>
-											</div>
-										</md-list-item>
-									</md-card>
-								</div>
-								<md-divider style="margin: 20px 0"></md-divider>
-								<md-subheader class="md-no-sticky">Player Roster</md-subheader>
-								<div>
-									<md-card ng-repeat="player in teamRoster">
-										<md-list-item ng-click="main.currentView = 'playerSearch'; goToPlayerProfile( player.name );">
-											<div layout="row" layout-align="start center" style="width: 100%">
-												<div flex="10" style="text-overflow: ellipses">{{ player.jersey_number }}</div>
-												<div flex="40" style="text-overflow: ellipses">{{ player.name }}</div>
-												<div flex="30" style="text-align: center">{{ player.position }}</div>
-												<div flex="20" style="text-align: center">{{ player.market_value }}</div>
-											</div>
-										</md-list-item>
-									</md-card>
+									<md-tabs md-dynamic-height md-border-bottom>
+										<md-tab label="Recent Mentions">
+											<md-card ng-repeat="mention in teamMentions">
+												<md-list-item ng-click="main.currentView = 'news'; goToArticle( mention.article_id );">
+													<div layout="row" layout-align="start center" style="width: 100%">
+														<div flex="40" style="text-overflow: ellipses">{{ mention.title }}</div>
+														<div flex="30" style="text-align: center">{{ mention.date }}</div>
+														<div flex="20" style="text-align: center">{{ mention.source }}</div>
+														<div flex="10" style="text-align: right">
+															<a href="{{ mention.link }}">
+																<md-icon md-font-library="material-icons" class="md-dark md-48">launch</md-icon>
+															</a>
+														</div>
+													</div>
+												</md-list-item>
+											</md-card>
+										</md-tab>
+										<md-tab label="Recent Rumors">
+											<div>blah</div>
+										</md-tab>
+										<md-tab label="Player Roster">
+											<!--<md-card ng-repeat="player in teamRoster">
+												<md-list-item ng-click="main.currentView = 'playerSearch'; goToPlayerProfile( player.name );">
+													<div layout="row" layout-align="start center" style="width: 100%">
+														<div flex="10" style="text-overflow: ellipses">{{ player.jersey_number }}</div>
+														<div flex="40" style="text-overflow: ellipses">{{ player.name }}</div>
+														<div flex="30" style="text-align: center">{{ player.position }}</div>
+														<div flex="20" style="text-align: center">{{ player.market_value }}</div>
+													</div>
+												</md-list-item>
+											</md-card> -->
+											<md-data-table-container>
+												<table md-data-table>
+													<thead md-order="teamQuery.order">
+														<tr>
+															<th name="Jersey Number" order-by="jersey_number"></th>
+															<th name="Name" order-by="name"></th>
+															<th name="Position" order-by="position"></th>
+															<th numeric name="Market Value" order-by="market_value.number"></th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-click="main.currentView = 'playerSearch'; goToPlayerProfile( player.name );" ng-repeat="player in teamRoster | orderBy: teamQuery.order | limitTo: teamQuery.limit: (teamQuery.page - 1) * teamQuery.limit">
+															<td>{{ player.jersey_number }}</td>
+															<td>{{ player.name }}</td>
+															<td>{{ player.position }}</td>
+															<td>{{ player.market_value.string }}</td>
+														</tr>
+													</tbody>
+												</table>
+											</md-data-table-container>
+
+											<md-data-table-pagination md-limit="teamQuery.limit" md-page="teamQuery.page" md-total="{{ teamRoster.length }}"></md-data-table-pagination>
+										</md-tab>
+									</md-tabs>
 								</div>
 							</div>
 						</div>

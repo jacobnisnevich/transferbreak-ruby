@@ -1,4 +1,4 @@
-var app = angular.module("TransferBreak", ["ngMaterial", "ngIdle"]);
+var app = angular.module("TransferBreak", ["ngMaterial", "ngIdle", "md.data.table"]);
 
 app.config(function($mdThemingProvider, IdleProvider) {
 	$mdThemingProvider.theme("default")

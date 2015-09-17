@@ -73,6 +73,14 @@ class FootballData
     team_roster_query = "SELECT * FROM transferbreak_players WHERE team = '#{team}'"
     team_roster = @client.query(team_roster_query).to_a
 
+    team_roster.each do |team_player|
+      team_player["jersey_number"] = Integer(team_player["jersey_number"])
+      team_player["market_value"] = {
+        "string" => team_player["market_value"],
+        "number" => Integer(team_player["market_value"].gsub(/[^0-9a-z ]/i, ''))
+      }
+    end
+
     return_object = {}
     return_object["team_info"] = team_info
     return_object["team_mentions"] = team_mentions

@@ -1,4 +1,4 @@
-app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", function($scope, $compile, $rootScope) {
+app.controller("BigPanelController", ["$q", "$scope", "$compile", "$rootScope", "$timeout", function($q, $scope, $compile, $rootScope, $timeout) {
 	// Twitter View
 
 	$scope.twitterData = {};
@@ -27,6 +27,11 @@ app.controller("BigPanelController", ["$scope", "$compile", "$rootScope", functi
 	$scope.teamMentions = {};
 	$scope.teamRoster = {};
 	$scope.teamLoaded = false;
+	$scope.teamQuery = {
+		order: 'jersey_number',
+		limit: 10,
+		page: 1
+	};
 
 	$scope.$on("teamDataLoaded", function(event, data) {
 		$scope.teamData = data.team_info;
