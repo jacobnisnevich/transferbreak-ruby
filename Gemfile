@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
 
 # set JAVA_HOME so Heroku will install gems that need it
 heroku_java_home = '/usr/lib/jvm/java-7-openjdk-amd64'
