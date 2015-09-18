@@ -5,6 +5,7 @@ GEM
     bind-it (0.2.7)
       rjb (~> 1.4.3)
     buftok (0.2.0)
+    byebug (6.0.2)
     certified (1.0.0)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
@@ -72,6 +73,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  byebug
   certified
   fuzzy_match
   monetize
