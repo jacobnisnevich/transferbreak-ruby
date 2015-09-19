@@ -1,1 +1,5 @@
-/lib/transferbreak/env.rb
+/lib/transferbreak/env.rb
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

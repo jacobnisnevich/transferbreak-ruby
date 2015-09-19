@@ -74,10 +74,18 @@ class FootballData
     team_roster = @client.query(team_roster_query).to_a
 
     team_roster.each do |team_player|
-      team_player["jersey_number"] = Integer(team_player["jersey_number"])
+      market_value_number = team_player["market_value"].gsub(/[^0-9a-z ]/i, '')
+
+      market_value_number = market_value_number == "" ? "0" : market_value_number
+      jersey_number_number = team_player["jersey_number"] == "" ? "0" : team_player["jersey_number"]
+
+      team_player["jersey_number"] = {
+        "string" => team_player["jersey_number"],
+        "number" => Integer(jersey_number_number)
+      }
       team_player["market_value"] = {
         "string" => team_player["market_value"],
-        "number" => Integer(team_player["market_value"].gsub(/[^0-9a-z ]/i, ''))
+        "number" => Integer(market_value_number)
       }
     end
 
