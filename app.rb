@@ -28,7 +28,6 @@ get '/userLogout' do
 end
 
 get '/getLoggedInUser' do
-  p ENV
   responseJSON = {}  
   if session["user"] != nil
     responseJSON["loggedIn"] = true

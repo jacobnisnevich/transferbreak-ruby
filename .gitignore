@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 tmp/
 log/
 vendor/
+=======
+/lib/transferbreak/env.rb
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+>>>>>>> 6d282fdcbbf0912c14cbe45b1ec0c01401550a36
