@@ -1,0 +1,37 @@
+<md-dialog aria-label="Account Settings">
+	<form>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Account Settings</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-font-library="material-icons" class="md-light md-48">clear</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="max-width:650px;max-height:600px;">
+		<md-content layout-padding class="autoScroll">
+			<h2 class="md-title">Twitter Preferences</h2>
+			<md-chips
+				ng-model="twitterPrefs"
+				placeholder="Enter a tag"
+				delete-button-label="Remove Tag"
+				delete-hint="Press delete to remove tag"></md-chips>
+			<h2 class="md-title">News Feed Preferences</h2>
+			<div layout="row" layout-wrap="">
+				<div flex="50" ng-repeat="news in newsSelection">
+					<md-checkbox ng-checked="exists(news, newsPrefs)" ng-click="toggle(news, newsPrefs)" class="md-primary">
+						{{ news }} <span ng-if="exists(news, newsPrefs)"></span>
+					</md-checkbox>
+				</div>
+			</div>
+		</md-content>
+	</md-dialog-content>
+	<div class="md-actions" layout="row">
+		<span flex class="flex"></span>
+		<md-button ng-click="submit()" style="margin-right:20px;" >
+			Submit
+		</md-button>
+	</div>
+	</form>
+</md-dialog>

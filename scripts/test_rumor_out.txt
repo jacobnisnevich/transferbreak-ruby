@@ -1,0 +1,198 @@
+1. Real Madrid are believed to be showing significant interest in Everton's John Stones.
+Tagged Text
+	Real Madrid are believed to be showing significant interest in <ORGANIZATION>Everton</ORGANIZATION>'s <PERSON>John</PERSON> <PERSON>Stones</PERSON>.
+Tagged Text (Merged Adjacent)
+	Real Madrid are believed to be showing significant interest in <TARGET></TARGET>.
+Extracted Target
+	{"player"=>"John Stones", "from"=>"Everton"}
+Target Replaced Text
+	Real Madrid are believed to be showing significant interest in <TARGET></TARGET>.
+Extracted Destination
+	{"error"=>"no match"}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"John Stones", "from"=>"Everton"}
+
+---------------------------------------------------------------------
+
+2. Spanish clubs Valencia and Atletico Madrid are believed to be tracking Nathan Oduwa's form at Rangers for $46 million.
+Tagged Text
+	Spanish clubs <LOCATION>Valencia</LOCATION> and <ORGANIZATION>Atletico</ORGANIZATION> <ORGANIZATION>Madrid</ORGANIZATION> are believed to be tracking <PERSON>Nathan</PERSON> <PERSON>Oduwa</PERSON>'s form at <ORGANIZATION>Rangers</ORGANIZATION> for <MONEY>$</MONEY><MONEY>46</MONEY> <MONEY>million</MONEY>.
+Tagged Text (Merged Adjacent)
+	Spanish clubs <ORGANIZATION>Valencia</ORGANIZATION> and <ORGANIZATION>Atletico Madrid</ORGANIZATION> are believed to be tracking <TARGET></TARGET> for <MONEY>$46 million</MONEY>.
+Extracted Target
+	{"player"=>"Nathan Oduwa", "from"=>"Rangers"}
+Target Replaced Text
+	Spanish clubs <ORGANIZATION>Valencia</ORGANIZATION> and <ORGANIZATION>Atletico Madrid</ORGANIZATION> are believed to be tracking <TARGET></TARGET> for <MONEY>$46 million</MONEY>.
+Extracted Destination
+	{"to"=>["Valencia", "Atletico Madrid"]}
+Extracted Fee
+	{"fee"=>"$46,000,000.00"}
+Combined Rumor
+	{"player"=>"Nathan Oduwa", "from"=>"Rangers", "to"=>["Valencia", "Atletico Madrid"], "fee"=>"$46,000,000.00"}
+
+---------------------------------------------------------------------
+
+3. Bolton and Cardiff City are showing interest in Manchester United's James Wilson.
+Tagged Text
+	<PERSON>Bolton</PERSON> and <LOCATION>Cardiff</LOCATION> <LOCATION>City</LOCATION> are showing interest in <ORGANIZATION>Manchester</ORGANIZATION> <ORGANIZATION>United</ORGANIZATION>'s <PERSON>James</PERSON> <PERSON>Wilson</PERSON>.
+Tagged Text (Merged Adjacent)
+	<PERSON>Bolton</PERSON> and <ORGANIZATION>Cardiff City</ORGANIZATION> are showing interest in <TARGET></TARGET>.
+Extracted Target
+	{"player"=>"James Wilson", "from"=>"Manchester United"}
+Target Replaced Text
+	<PERSON>Bolton</PERSON> and <ORGANIZATION>Cardiff City</ORGANIZATION> are showing interest in <TARGET></TARGET>.
+Extracted Destination
+	{"to"=>["Cardiff City"]}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"James Wilson", "from"=>"Manchester United", "to"=>["Cardiff City"]}
+
+---------------------------------------------------------------------
+
+4. Manchester United were reportedly prepared to pay a record-breaking transfer fee for Bayern Munich's Thomas Muller.
+Tagged Text
+	<ORGANIZATION>Manchester</ORGANIZATION> <ORGANIZATION>United</ORGANIZATION> were reportedly prepared to pay a record-breaking transfer fee for <ORGANIZATION>Bayern</ORGANIZATION> <ORGANIZATION>Munich</ORGANIZATION>'s <PERSON>Thomas</PERSON> <PERSON>Muller</PERSON>.
+Tagged Text (Merged Adjacent)
+	<ORGANIZATION>Manchester United</ORGANIZATION> were reportedly prepared to pay a record-breaking transfer fee for <TARGET></TARGET>.
+Extracted Target
+	{"player"=>"Thomas Muller", "from"=>"Bayern Munich"}
+Target Replaced Text
+	<ORGANIZATION>Manchester United</ORGANIZATION> were reportedly prepared to pay a record-breaking transfer fee for <TARGET></TARGET>.
+Extracted Destination
+	{"to"=>["Manchester United"]}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"Thomas Muller", "from"=>"Bayern Munich", "to"=>["Manchester United"]}
+
+---------------------------------------------------------------------
+
+5. Arsenal are reportedly keeping tabs on Anderlecht midfielder Youri Tielemans and may table a bid for the teenager once the January transfer window opens.
+Tagged Text
+	Arsenal are reportedly keeping tabs on <ORGANIZATION>Anderlecht</ORGANIZATION> midfielder <PERSON>Youri</PERSON> <PERSON>Tielemans</PERSON> and may table a bid for the teenager once the January transfer window opens.
+Tagged Text (Merged Adjacent)
+	Arsenal are reportedly keeping tabs on <TARGET></TARGET> and may table a bid for the teenager once the January transfer window opens.
+Extracted Target
+	{"player"=>"Youri Tielemans", "from"=>"Anderlecht"}
+Target Replaced Text
+	Arsenal are reportedly keeping tabs on <TARGET></TARGET> and may table a bid for the teenager once the January transfer window opens.
+Extracted Destination
+	{"error"=>"no match"}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"Youri Tielemans", "from"=>"Anderlecht"}
+
+---------------------------------------------------------------------
+
+6. Newcastle United are still interested in Queens Park Rangers striker Charlie Austin, according to Toon boss Steve McClaren.
+Tagged Text
+	<ORGANIZATION>Newcastle</ORGANIZATION> <ORGANIZATION>United</ORGANIZATION> are still interested in <ORGANIZATION>Queens</ORGANIZATION> <ORGANIZATION>Park</ORGANIZATION> <ORGANIZATION>Rangers</ORGANIZATION> striker <PERSON>Charlie</PERSON> <PERSON>Austin</PERSON>, according to <LOCATION>Toon</LOCATION> boss <PERSON>Steve</PERSON> <PERSON>McClaren</PERSON>.
+Tagged Text (Merged Adjacent)
+	<ORGANIZATION>Newcastle United</ORGANIZATION> are still interested in <TARGET></TARGET>, according to <ORGANIZATION>Toon</ORGANIZATION> boss <PERSON>Steve McClaren</PERSON>.
+Extracted Target
+	{"player"=>"Charlie Austin", "from"=>"Queens Park Rangers"}
+Target Replaced Text
+	<ORGANIZATION>Newcastle United</ORGANIZATION> are still interested in <TARGET></TARGET>, according to <ORGANIZATION>Toon</ORGANIZATION> boss <PERSON>Steve McClaren</PERSON>.
+Extracted Destination
+	{"to"=>["Newcastle United"]}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"Charlie Austin", "from"=>"Queens Park Rangers", "to"=>["Newcastle United"]}
+
+---------------------------------------------------------------------
+
+7. Burnley defender Michael Keane is reportedly the subject of interest from Newcastle United and Everton.
+Tagged Text
+	<ORGANIZATION>Burnley</ORGANIZATION> defender <PERSON>Michael</PERSON> <PERSON>Keane</PERSON> is reportedly the subject of interest from <ORGANIZATION>Newcastle</ORGANIZATION> <ORGANIZATION>United</ORGANIZATION> and <ORGANIZATION>Everton</ORGANIZATION>.
+Tagged Text (Merged Adjacent)
+	<TARGET></TARGET> is reportedly the subject of interest from <ORGANIZATION>Newcastle United</ORGANIZATION> and <ORGANIZATION>Everton</ORGANIZATION>.
+Extracted Target
+	{"player"=>"Michael Keane", "from"=>"Burnley"}
+Target Replaced Text
+	<TARGET></TARGET> is reportedly the subject of interest from <ORGANIZATION>Newcastle United</ORGANIZATION> and <ORGANIZATION>Everton</ORGANIZATION>.
+Extracted Destination
+	{"to"=>["Newcastle United", "Everton"]}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"Michael Keane", "from"=>"Burnley", "to"=>["Newcastle United", "Everton"]}
+
+---------------------------------------------------------------------
+
+8. Birmingham winger Demarai Gray is reportedly on the radar of German Champions Bayern Munich.
+Tagged Text
+	<LOCATION>Birmingham</LOCATION> winger <PERSON>Demarai</PERSON> <PERSON>Gray</PERSON> is reportedly on the radar of German Champions <ORGANIZATION>Bayern</ORGANIZATION> <ORGANIZATION>Munich</ORGANIZATION>.
+Tagged Text (Merged Adjacent)
+	<TARGET></TARGET> is reportedly on the radar of German Champions <ORGANIZATION>Bayern Munich</ORGANIZATION>.
+Extracted Target
+	{"player"=>"Demarai Gray", "from"=>"Birmingham"}
+Target Replaced Text
+	<TARGET></TARGET> is reportedly on the radar of German Champions <ORGANIZATION>Bayern Munich</ORGANIZATION>.
+Extracted Destination
+	{"to"=>["Bayern Munich"]}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"Demarai Gray", "from"=>"Birmingham", "to"=>["Bayern Munich"]}
+
+---------------------------------------------------------------------
+
+9. Inter Milan chief Piero Ausilio insists they were never interested in Mario Balotelli.
+Tagged Text
+	<ORGANIZATION>Inter</ORGANIZATION> <ORGANIZATION>Milan</ORGANIZATION> chief <PERSON>Piero</PERSON> <PERSON>Ausilio</PERSON> insists they were never interested in <PERSON>Mario</PERSON> <PERSON>Balotelli</PERSON>.
+Tagged Text (Merged Adjacent)
+	<ORGANIZATION>Inter Milan</ORGANIZATION> chief <PERSON>Piero Ausilio</PERSON> insists they were never interested in <PERSON>Mario Balotelli</PERSON>.
+Extracted Target
+	{"error"=>"no match", "replaced_text"=>"<ORGANIZATION>Inter Milan</ORGANIZATION> chief <PERSON>Piero Ausilio</PERSON> insists they were never interested in <PERSON>Mario Balotelli</PERSON>."}
+Target Replaced Text
+	<ORGANIZATION>Inter Milan</ORGANIZATION> chief <PERSON>Piero Ausilio</PERSON> insists they were never interested in <PERSON>Mario Balotelli</PERSON>.
+Extracted Destination
+	{"to"=>["Inter Milan"], "player"=>"Mario Balotelli"}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"to"=>["Inter Milan"], "player"=>"Mario Balotelli"}
+
+---------------------------------------------------------------------
+
+10. Liverpool and Manchester United are battling for Brazilian teenager Fabricio Oya.
+Tagged Text
+	<ORGANIZATION>Liverpool</ORGANIZATION> and <ORGANIZATION>Manchester</ORGANIZATION> <ORGANIZATION>United</ORGANIZATION> are battling for Brazilian teenager <PERSON>Fabricio</PERSON> <PERSON>Oya</PERSON>.
+Tagged Text (Merged Adjacent)
+	<ORGANIZATION>Liverpool</ORGANIZATION> and <ORGANIZATION>Manchester United</ORGANIZATION> are battling for Brazilian teenager <PERSON>Fabricio Oya</PERSON>.
+Extracted Target
+	{"error"=>"no match", "replaced_text"=>"<ORGANIZATION>Liverpool</ORGANIZATION> and <ORGANIZATION>Manchester United</ORGANIZATION> are battling for Brazilian teenager <PERSON>Fabricio Oya</PERSON>."}
+Target Replaced Text
+	<ORGANIZATION>Liverpool</ORGANIZATION> and <ORGANIZATION>Manchester United</ORGANIZATION> are battling for Brazilian teenager <PERSON>Fabricio Oya</PERSON>.
+Extracted Destination
+	{"to"=>["Liverpool"], "player"=>"Fabricio Oya"}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"to"=>["Liverpool"], "player"=>"Fabricio Oya"}
+
+---------------------------------------------------------------------
+
+11. Manchester City boss Manuel Pellegrini is coy over whether they made a summer push for Juventus midfielder Paul Pogba.
+Tagged Text
+	<LOCATION>Manchester</LOCATION> <LOCATION>City</LOCATION> boss <PERSON>Manuel</PERSON> <PERSON>Pellegrini</PERSON> is coy over whether they made a summer push for <ORGANIZATION>Juventus</ORGANIZATION> midfielder <PERSON>Paul</PERSON> <PERSON>Pogba</PERSON>.
+Tagged Text (Merged Adjacent)
+	<ORGANIZATION>Manchester City</ORGANIZATION> boss <PERSON>Manuel Pellegrini</PERSON> is coy over whether they made a summer push for <TARGET></TARGET>.
+Extracted Target
+	{"player"=>"Paul Pogba", "from"=>"Juventus"}
+Target Replaced Text
+	<ORGANIZATION>Manchester City</ORGANIZATION> boss <PERSON>Manuel Pellegrini</PERSON> is coy over whether they made a summer push for <TARGET></TARGET>.
+Extracted Destination
+	{"to"=>["Manchester City"]}
+Extracted Fee
+	{"error"=>"no match"}
+Combined Rumor
+	{"player"=>"Paul Pogba", "from"=>"Juventus", "to"=>["Manchester City"]}
+
+---------------------------------------------------------------------
+

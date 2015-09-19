@@ -1,0 +1,81 @@
+html, body {
+	height: 100%;
+}
+
+#main-column {
+	height: 100%;
+}
+
+#main-row {
+	height: 100%;
+}
+
+.entity-mentioned {
+	color: blue;
+}
+
+.entity-mentioned:hover {
+	cursor: pointer
+}
+
+md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-active {
+	min-width: 400px !important;
+	width: 400px !important;
+	max-width: 400px !important;
+}
+
+.md-light {
+	color: rgb(255,255,255) !important;
+}
+
+.md-dark {
+	color: rgb(0,0,0) !important;
+}
+
+.light-blue-background {
+	background-color: #BBDEFB;
+}
+
+.dark-blue-background {
+	background-color: #0D47A1;
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+}
+ 
+::-webkit-scrollbar-thumb {
+	background-color: rgb(120, 188, 242);
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#my-speed-dial {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.not-rounded {
+	border-radius: 0% !important;
+}
+
+.player-data-img {
+	height: 128px;
+}
+
+.player-data-number {
+	margin: 0px 10px 0px;
+	font-size: 48px;
+	line-height: 56px;
+	font-weight: bold;
+	font-family: Roboto Slab;
+	color: rgb(100, 100, 100);
+}
+
+.player-data-name {
+	margin: 0px 10px 10px;
+}
+
+.player-data-team {
+	margin: 0 10px;
+}

@@ -1,0 +1,17 @@
+######### ORIGINAL TEXT #########
+Messi isn't faffing around either. They’ll be making enquiries for the £22m Sevilla striker Carlos Bacca, and the £21m Benfica midfielder Nicolás Gaitán. Liverpool are also sniffing around the latter, hoping to hijack the move, but consider Memphis Depay and let us move on without further comment.
+
+######### ORGANIZATION #########
+{"text"=>"Sevilla", "offset_start"=>"76", "offset_end"=>"84", "tag"=>"ORGANIZATION"}
+{"text"=>"Benfica", "offset_start"=>"119", "offset_end"=>"127", "tag"=>"ORGANIZATION"}
+{"text"=>"Liverpool", "offset_start"=>"154", "offset_end"=>"164", "tag"=>"ORGANIZATION"}
+######### LOCATION #########
+
+######### PERSON #########
+{"text"=>"Messi", "offset_start"=>"0", "offset_end"=>"6", "tag"=>"PERSON"}
+{"text"=>"Carlos Bacca", "offset_start"=>"92", "offset_end"=>"104", "tag"=>"PERSON"}
+{"text"=>"Nicol\u00E1s Gait\u00E1n", "offset_start"=>"138", "offset_end"=>"152", "tag"=>"PERSON"}
+{"text"=>"Memphis Depay", "offset_start"=>"241", "offset_end"=>"255", "tag"=>"PERSON"}
+######### MONEY #########
+{"text"=>"\u00A322,000,000.00", "offset_start"=>"71", "offset_end"=>"76", "tag"=>"MONEY"}
+{"text"=>"\u00A321,000,000.00", "offset_start"=>"114", "offset_end"=>"119", "tag"=>"MONEY"}
