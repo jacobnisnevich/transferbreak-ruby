@@ -373,7 +373,7 @@
 												<table md-data-table>
 													<thead md-order="teamQuery.order">
 														<tr>
-															<th name="Jersey Number" order-by="jersey_number"></th>
+															<th name="Jersey Number" order-by="jersey_number.number"></th>
 															<th name="Name" order-by="name"></th>
 															<th name="Position" order-by="position"></th>
 															<th numeric name="Market Value" order-by="market_value.number"></th>
@@ -381,7 +381,7 @@
 													</thead>
 													<tbody>
 														<tr ng-click="main.currentView = 'playerSearch'; goToPlayerProfile( player.name );" ng-repeat="player in teamRoster | orderBy: teamQuery.order | limitTo: teamQuery.limit: (teamQuery.page - 1) * teamQuery.limit">
-															<td>{{ player.jersey_number }}</td>
+															<td>{{ player.jersey_number.string }}</td>
 															<td>{{ player.name }}</td>
 															<td>{{ player.position }}</td>
 															<td>{{ player.market_value.string }}</td>
