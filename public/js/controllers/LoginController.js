@@ -40,6 +40,7 @@ app.controller("LoginController", ["$scope", "$mdDialog", "$http", "$rootScope",
 				$scope.beLoggedIn(response.data.user)
 			} else {
 				$rootScope.$broadcast("initGenericTweets");
+				$rootScope.$broadcast("initGenericNews");
 			}
 		}, function(response) {
 			console.log("Failed to retrieve logged in user");
